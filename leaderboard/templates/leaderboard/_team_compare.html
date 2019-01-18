@@ -1,0 +1,6 @@
+{% load humanize %}
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: {{ stat.mystic_pct }}%;" aria-valuenow="{{ stat.mystic_pct }}" aria-valuemin="0" aria-valuemax="100">{{ stat.mystic|intcomma }}</div>
+  <div class="progress-bar bg-danger" role="progressbar" style="width: {{ stat.valor_pct }}%;" aria-valuenow="{{ stat.valor_pct }}" aria-valuemin="0" aria-valuemax="100">{{ stat.valor|intcomma }}</div>
+  <div class="progress-bar bg-warning" role="progressbar" style="width: {{ stat.instinct_pct }}%;" aria-valuenow=" {{ stat.instinct_pct }}" aria-valuemin="0" aria-valuemax="100"> {{ stat.instinct|intcomma }}</div>
+</div>

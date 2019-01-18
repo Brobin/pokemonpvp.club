@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% load staticfiles humanize leaderboard_tags %}
+
+{% block title %}Pokemon Go Leaderboard{% endblock %}
+
+{% block content %}
+<h1>Pokemon Go Leaderboard</h1>
+
+<div class="row">
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Experience</h5>
+        <h1>{{ stats.sum_xp | intword2 }}</h1>
+        <p>{{ stats.avg_xp|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in xp_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.xp | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.xp as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokedex Entries</h5>
+        <h1>{{ stats.avg_pokedex_number|floatformat:0 }} Average</h1>
+        <p>&nbsp;</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in pokedex_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.pokedex_number }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-pokedex_number" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Players per Team</h3>
+      {% with charts.players as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokemon Caught</h5>
+        <h1>{{ stats.sum_pokemon_caught | intword2 }}</h1>
+        <p>{{ stats.avg_pokemon_caught|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in catch_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.pokemon_caught | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-pokemon_caught" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.pokemon_caught as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Battles Won</h5>
+        <h1>{{ stats.sum_battles_won | intcomma }}</h1>
+        <p>{{ stats.avg_battles_won|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in battle_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.battles_won | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-battles_won" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.battles_won as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Hours Defended</h5>
+        <h1>{{ stats.sum_hours_defended| intcomma }}</h1>
+        <p>{{ stats.avg_hours_defended|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in defender_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{% if trainer.hours_defended %}{{ trainer.hours_defended | intcomma }}{% else %}?{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-hours_defended" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.hours_defended as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Berries Fed</h5>
+        <h1>{{ stats.sum_berries_fed | intcomma }}</h1>
+        <p>{{ stats.avg_berries_fed|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in berry_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{% if trainer.berries_fed %}{{ trainer.berries_fed | intcomma }}{% else %}?{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-berries_fed" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.berries_fed as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokestops Spun</h5>
+        <h1>{{ stats.sum_pokestops_spun | intword2 }}</h1>
+        <p>{{ stats.avg_pokestops_spun|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in spin_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.pokestops_spun | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-pokestops_spun" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.pokestops_spun as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Kilometers Walked</h5>
+        <h1><a data-toggle="tooltip" title="{{ globes|floatformat:2 }} times around the globe">{{ stats.sum_kilometers_walked|floatformat:1 | intcomma }}</a></h1>
+        <p>{{ stats.avg_kilometers_walked|floatformat:1 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in walking_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.kilometers_walked | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-kilometers_walked" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.kilometers_walked as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Eggs Hatched</h5>
+        <h1>{{ stats.sum_eggs_hatched | intcomma }}</h1>
+        <p>{{ stats.avg_eggs_hatched|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in egg_leaders %}
+          <tr>
+            
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{% if trainer.eggs_hatched %}{{ trainer.eggs_hatched | intcomma }}{% else %}?{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-eggs_hatched" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.eggs_hatched as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,122 @@
+ 
+@import "../bower_components/bootstrap/scss/_functions";
+@import "../bower_components/bootstrap/scss/_variables";
+
+@import "variables";
+
+@import "../bower_components/bootstrap/scss/_mixins";
+@import "../bower_components/bootstrap/scss/_root";
+@import "../bower_components/bootstrap/scss/_reboot";
+@import "../bower_components/bootstrap/scss/_type";
+@import "../bower_components/bootstrap/scss/_images";
+@import "../bower_components/bootstrap/scss/_code";
+@import "../bower_components/bootstrap/scss/_grid";
+@import "../bower_components/bootstrap/scss/_tables";
+@import "../bower_components/bootstrap/scss/_forms";
+@import "../bower_components/bootstrap/scss/_buttons";
+@import "../bower_components/bootstrap/scss/_transitions";
+@import "../bower_components/bootstrap/scss/_dropdown";
+@import "../bower_components/bootstrap/scss/_button-group";
+@import "../bower_components/bootstrap/scss/_input-group";
+@import "../bower_components/bootstrap/scss/_custom-forms";
+@import "../bower_components/bootstrap/scss/_nav";
+@import "../bower_components/bootstrap/scss/_navbar";
+@import "../bower_components/bootstrap/scss/_card";
+@import "../bower_components/bootstrap/scss/_breadcrumb";
+@import "../bower_components/bootstrap/scss/_pagination";
+@import "../bower_components/bootstrap/scss/_badge";
+@import "../bower_components/bootstrap/scss/_jumbotron";
+@import "../bower_components/bootstrap/scss/_alert";
+@import "../bower_components/bootstrap/scss/_progress";
+@import "../bower_components/bootstrap/scss/_media";
+@import "../bower_components/bootstrap/scss/_list-group";
+@import "../bower_components/bootstrap/scss/_close";
+@import "../bower_components/bootstrap/scss/_toasts";
+@import "../bower_components/bootstrap/scss/_modal";
+@import "../bower_components/bootstrap/scss/_tooltip";
+@import "../bower_components/bootstrap/scss/_popover";
+@import "../bower_components/bootstrap/scss/_carousel";
+@import "../bower_components/bootstrap/scss/_spinners";
+@import "../bower_components/bootstrap/scss/_utilities";
+@import "../bower_components/bootstrap/scss/_print";
+ 
+.ml-auto .dropdown-menu {
+  left: auto !important;
+  right: 0px;
+}
+
+body, html {
+  background-color: $gray-100;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.page {
+  min-height: 100%;
+}
+
+.page-content {
+  padding-bottom: 70px;
+}
+
+.footer {
+  height: 70px;
+  margin-top: -70px;
+  background-color: #e7e7e7;
+  padding: 20px 0;
+  .copyright {
+    float: right;
+    color: $gray-600;
+  }
+}
+
+
+.table th {
+  border-top: none;
+}
+
+.table-condensed {
+  th, td {
+    padding: 0.25rem;
+  }
+}
+
+label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.well {
+  background-color: $white;
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 0 5px $gray-400;
+  padding: 20px;
+  margin-bottom: 20px;
+  h5 {
+    font-size: 1.4em;
+  }
+}
+
+.alert {
+  margin-top: 20px;
+  p {
+    margin-bottom: 0;
+  }
+}
+
+p.error {
+  color: $danger;
+  margin-bottom: 0;
+  font-size: 12px;
+  + input {
+    border-color: lighten($danger, 20%);
+  }
+}
+
+.progress {
+  height: 1.5rem;
+  font-size: 1rem;
+}

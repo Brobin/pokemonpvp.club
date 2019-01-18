@@ -1,0 +1,12 @@
+Django==2.1.5
+django-appconf==1.0.2
+django-compressor==2.2
+django-debug-toolbar==1.11
+django-libsass==0.7
+libsass==0.17.0
+pkg-resources==0.0.0
+pytz==2018.9
+rcssmin==1.0.6
+rjsmin==1.0.12
+six==1.12.0
+sqlparse==0.2.4

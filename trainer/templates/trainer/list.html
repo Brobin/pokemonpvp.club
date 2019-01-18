@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Trainers | Lincoln Pokemon Go{% endblock %}
+
+{% load humanize staticfiles trainer_tags %}
+
+{% block content %}
+<h1>Trainer Leaderboard</h1>
+<br/>
+<div class="well">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Team</th>
+        <th>Trainer</th>
+        <th>XP</th>
+        <th>Dex</th>
+        <th><img src="{% static 'img/badge/pokemon_caught.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/eggs_hatched.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/kilometers_walked.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/ace_trainer.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/battles_won.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/great_veteran.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/ultra_veteran.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/master_veteran.png' %}" height="40"/></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trainer in object_list %}
+      <tr>
+        <td style="padding:10px 20px;"><img src="{% static trainer.team_image %}" height="30"/></td>
+        <td><a href="{{ trainer.url }}">{{ trainer.name }}</a></td>
+        <td>{{ trainer.xp }}</td>
+        <td>{{ trainer.pokedex_number  }}</td>
+        <td>{{ trainer.pokemon_caught }}</td>
+        <td>{{ trainer.eggs_hatched }}</td>
+        <td>{{ trainer.kilometers_walked }}</td>
+        <td>{{ trainer.ace_trainer }}</td>
+        <td>{{ trainer.battles_won }}</td>
+        <td>{{ trainer.great_veteran }}</td>
+        <td>{{ trainer.ultra_veteran }}</td>
+        <td>{{ trainer.master_veteran }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?{% url_replace request 'page' page_obj.previous_page_number %}">Previous</a></li>
+    {% else %}
+    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+    {% endif %}
+    {% for i in page_obj.paginator.page_range %}
+    <li class="page-item"><a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a></li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-item"><a class="page-link" href="?{% url_replace request 'page' page_obj.next_page_number %}">Next</a></li>
+    {% else %}
+    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$('#ordering').change(function(){
+  window.location = $(this).find(":selected").data('href');
+});
+</script>
+{% endblock %}

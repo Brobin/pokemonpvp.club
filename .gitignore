@@ -1,0 +1,33 @@
+# Python cruft
+*.pyc
+__pycache__
+src
+
+# virtualenv
+venv
+
+# db
+db.sqlite3
+
+# static files
+static
+base/assets/bower_components
+
+# local settings
+local.py
+
+# Uploads
+media/
+
+# Coverage report
+.coverage
+
+# Logs
+.logs/*.log
+
+# DS_Store
+.DS_Store
+**/Thumbs.db
+
+# Fixtures
+admin.json

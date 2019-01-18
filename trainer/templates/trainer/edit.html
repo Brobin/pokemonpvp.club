@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{% if form.instance.pk %}Editing {{ form.instance.username }}{% else %}Create Your Trainer Profile{% endif %}{% endblock %}
+
+{% load trainer_tags %}
+
+{% block content %}
+<br/>
+<div class="text-center">
+  <h1>{% if form.instance.pk %}Editing {{ form.instance.username }}{% else %}Create Your Trainer Profile{% endif %}</h1>
+</div>
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="well">
+    <form method="post" id="form">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-sm-12">
+            {% with field=form.name %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-sm-4">
+            <label for="{{ form.team.name }}">Team</label>
+            {{ form.team }}
+          </div>
+          <div class="col-sm-4">
+            {% with field=form.xp type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-sm-4">
+            {% with field=form.pokedex_number type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.pokemon_caught type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.eggs_hatched type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.kilometers_walked type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.pokestops_spun type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.research_tasks type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.ace_trainer type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.battles_won type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.hours_defended type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.berries_fed type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.great_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.ultra_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
+            {% with field=form.master_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+          </div>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-primary" value="Save" onclick="$(this).attr('disabled','disabled');$('#form').submit()"/>
+      </form>
+    </div>
+  </div>
+</div>
+    
+{% endblock %}

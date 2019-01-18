@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}PvP IV Spread Analysis{% endblock %}
+
+{% block content %}
+<h1>PvP IV Spread Analysis</h1>
+
+<p>Choose a pokemon from the list to see the top 50 ideal IV spreads for the chosen league</p>
+
+<form method="get">
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
+      <label>Pokemon</label>
+      <input class="form-control" type="text" list="pokemon" name="pokemon" value="{{ pokemon.name }}"/>
+      <datalist id="pokemon">
+        {% for choice in choices %}
+        <option>{{ choice.name }}</option>
+        {% endfor %}
+      </datalist>
+    </div>
+    <div class="col-md-4 col-sm-6">
+      <label>League</label>
+      <select name="max_cp" class="form-control">
+        <option value="1500" {% if max_cp == 1500 %}selected{% endif %}>Great League</option>
+        <option value="2500" {% if max_cp == 2500 %}selected{% endif %}>Ultra League</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>Attack IV</label>
+      <select name="att_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == att_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>Defense IV</label>
+      <select name="def_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == def_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>HP IV</label>
+      <select name="sta_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == sta_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <input type="submit" value="View Stats" class="btn btn-primary" style="margin-top:38px;"/>
+    </div>
+  </div>
+</form>
+<div class="well" style="margin-top:20px;">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Level</th>
+        <th>Att IV</th>
+        <th>Def IV</th>
+        <th>HP IV</th>
+        <th>CP</th>
+        <th>Stat Product</th>
+        <th>Sum of Stats</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-active">
+        {% for stat in my_combo %}
+        <td>{{ stat }}</td>
+        {% endfor %}
+      </tr>
+      {% for c in combos %}
+      <tr>
+        {% for stat in c %}
+        <td>{{ stat }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

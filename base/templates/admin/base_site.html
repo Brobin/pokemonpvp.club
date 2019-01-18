@@ -1,0 +1,19 @@
+{% extends "admin/base.html" %}
+
+{% load compress i18n staticfiles %}
+
+{% block title %}
+Pokemon Go Leaderboard Admin
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+  #branding h1, #branding h1 a:link, #branding h1 a:visited, #header {
+    color: white;
+  }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Pokemon Go Leaderboard Admin</h1>
+{% endblock %}
