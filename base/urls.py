@@ -7,6 +7,7 @@ from leaderboard.views import IndexView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),
     path('auth/', include('allauth.urls')),
     path('leaderboard/', include('leaderboard.urls')),
     path('pokemon/', include('pokemon.urls')),

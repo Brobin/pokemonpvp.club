@@ -43,11 +43,14 @@ INSTALLED_APPS = [
     'compressor',
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.discord',
 
+    'api',
     'leaderboard',
     'pokemon',
     'trainer',
@@ -176,6 +179,15 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('trainer-create')
 
 SOCIALACCOUNT_ADAPTER = 'base.providers.DiscordSocialAccountAdapter'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'NON_FIELD_ERRORS_KEY': 'errors',
+    'PAGE_SIZE': 100,
+}
 
 try:
     from .local import *
