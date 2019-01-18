@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'compressor',
     'debug_toolbar',
-    
+    'django_extensions'
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -175,3 +175,8 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('trainer-create')
 
 SOCIALACCOUNT_ADAPTER = 'base.providers.DiscordSocialAccountAdapter'
+
+try:
+    from .local import *
+except ImportError:
+    pass

@@ -72,6 +72,11 @@ class TrainerList(LoginMixin, ListView):
     orderings = [
         ('-xp', 'XP'),
         ('-collector', 'Pokemon Caught'),
+        ('-breeder', 'Eggs Hatched'),
+        ('-jogger', 'Kilometers Walked'),
+        ('-great_veteran', 'Great League Wins'),
+        ('-ultra_veteran', 'Ultra League Wins'),
+        ('-master_veteran', 'Master League Wins'),
     ]
 
     def get_context_data(self, *args, **kwargs):
