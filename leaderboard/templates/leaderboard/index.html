@@ -74,6 +74,72 @@
       {% with charts.collector as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
     </div>
   </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Great League</h5>
+        <h1><img src="{% static 'img/badge/great_veteran.png' %}"  height="50"/>&nbsp;{{ stats.sum_great_veteran | intword2 }}</h1>
+        <p>{{ stats.avg_great_veteran|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in great_veteran_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.great_veteran | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-breeder" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.great_veteran as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Ultra League</h5>
+        <h1><img src="{% static 'img/badge/ultra_veteran.png' %}" height="50"/>&nbsp;{{ stats.sum_ultra_veteran | intword2 }}</h1>
+        <p>{{ stats.avg_ultra_veteran|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in ultra_veteran_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.ultra_veteran | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-ultra_veteran" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.ultra_veteran as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Master League</h5>
+        <h1><img src="{% static 'img/badge/master_veteran.png' %}" height="50"/>&nbsp;{{ stats.sum_master_veteran | intword2 }}</h1>
+        <p>{{ stats.avg_master_veteran|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in master_veteran_leaders %}
+          <tr>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
+            <td>{{ trainer.master_veteran | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainer-list' %}?ordering=-master_veteran" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.master_veteran as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
 </div>
 {% endblock %}
 

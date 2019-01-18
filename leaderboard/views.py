@@ -16,10 +16,19 @@ class IndexView(TemplateView):
             sum_collector=Sum('collector'),
             avg_breeder=Avg('breeder'),
             sum_breeder=Sum('breeder'),
+            avg_great_veteran=Avg('great_veteran'),
+            sum_great_veteran=Sum('great_veteran'),
+            avg_ultra_veteran=Avg('ultra_veteran'),
+            sum_ultra_veteran=Sum('ultra_veteran'),
+            avg_master_veteran=Avg('master_veteran'),
+            sum_master_veteran=Sum('master_veteran'),
         )
         context['xp_leaders'] = Trainer.objects.order_by('-xp')[:5]
         context['collector_leaders'] = Trainer.objects.order_by('-collector', '-xp')[:5]
         context['breeder_leaders'] = Trainer.objects.order_by('-breeder', '-xp')[:5]
+        context['great_veteran_leaders'] = Trainer.objects.order_by('-great_veteran', '-xp')[:5]
+        context['ultra_veteran_leaders'] = Trainer.objects.order_by('-ultra_veteran', '-xp')[:5]
+        context['master_veteran_leaders'] = Trainer.objects.order_by('-master_veteran', '-xp')[:5]
         context['charts']= self.get_charts()
 
         return context
@@ -29,7 +38,10 @@ class IndexView(TemplateView):
             players=Count('pk'),
             xp=Sum('xp'),
             collector=Sum('collector'),
-            breeder=Sum('breeder')
+            breeder=Sum('breeder'),
+            great_veteran=Sum('great_veteran'),
+            ultra_veteran=Sum('ultra_veteran'),
+            master_veteran=Sum('master_veteran'),
         )
 
     def get_charts(self):
@@ -37,7 +49,7 @@ class IndexView(TemplateView):
         valor = self.chart_aggregate(Trainer.VALOR)
         instinct = self.chart_aggregate(Trainer.INSTINCT)
         charts = {}
-        for datum in ['xp', 'collector', 'breeder']:
+        for datum in ['xp', 'collector', 'breeder', 'great_veteran', 'ultra_veteran', 'master_veteran']:
             m, v, i = int(mystic[datum] or 0), int(valor[datum] or 0), int(instinct[datum] or 0)
             total = m + v + i
             if total == 0 or m == 0 or v == 0 or i == 0:
