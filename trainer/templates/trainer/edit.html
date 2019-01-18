@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}{% if form.instance.pk %}Editing {{ form.instance.username }}{% else %}Create Your Trainer Profile{% endif %}{% endblock %}
+{% block title %}{% if form.instance.pk %}Editing {{ form.instance.name }}{% else %}Create Your Trainer Profile{% endif %}{% endblock %}
 
 {% load trainer_tags %}
 
 {% block content %}
 <br/>
 <div class="text-center">
-  <h1>{% if form.instance.pk %}Editing {{ form.instance.username }}{% else %}Create Your Trainer Profile{% endif %}</h1>
+  <h1>{% if form.instance.pk %}Editing {{ form.instance.name }}{% else %}Create Your Trainer Profile{% endif %}</h1>
 </div>
 <div class="row">
   <div class="col-lg-8 offset-lg-2">

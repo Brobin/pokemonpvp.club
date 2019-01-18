@@ -44,6 +44,14 @@ class Trainer(BaseModel):
         return reverse('trainer', kwargs={'name': self.name})
 
     @property
+    def discord_username(self):
+        discord = self.user.socialaccount_set.first()
+        try:
+            return '{username}#{discriminator}'.format(**discord.extra_data)
+        except:
+            return ''
+
+    @property
     def url(self):
         return self.get_absolute_url()
 

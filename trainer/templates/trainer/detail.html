@@ -8,71 +8,144 @@
 <div class="row">
   <div class="col-md-4">
     <div class="well text-center">
-      <h2>{{ object.name }}</h2>
+      <h2>{{ object.name }}{% if object.user == user %}&nbsp;<a href="{% url 'trainer-edit' name=trainer.name %}" class="btn btn-sm btn-primary">Edit</a>{% endif %}</h2>
+      <p>{{ trainer.discord_username }}</p>
       <hr/>
       <p><i>Last updated: {{ object.updated_at | date }}</i></p>
       <h4>Level {{ object.level }} <img src="{% static object.team_image %}" height="40"/></h4>
       <h5>{{ object.xp | intcomma }} XP</h5>
-      <h6>{{ object.pokedex_number | intcomma }} Dex Entries</h6>
+      <h6>{{ object.pokedex_number | intcomma }} Pokedex Entries</h6>
       <hr/>
-      <div class="row">
-        <div class="col-4">
+      <canvas id="trainer-radar" height="300"></canvas>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="well">
+      <h4>Trophy Case</h4>
+      <hr>
+      <p>Coming Soon!</p>
+    </div>
+    <div class="well">
+      <h4>Achievements</h4>
+      <hr/>
+      <div class="row text-center">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/pokemon_caught.png' %}" height="40"/>
           <p>{{ object.pokemon_caught | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/eggs_hatched.png' %}" height="40"/>
           <p>{{ object.eggs_hatched | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/kilometers_walked.png' %}" height="40"/>
           <p>{{ object.kilometers_walked | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/pokestops_spun.png' %}" height="40"/>
           <p>{{ object.pokestops_spun | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/research_tasks.png' %}" height="40"/>
           <p>{{ object.research_tasks | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/ace_trainer.png' %}" height="40"/>
           <p>{{ object.ace_trainer | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/battles_won.png' %}" height="40"/>
           <p>{{ object.battles_won | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/hours_defended.png' %}" height="40"/>
           <p>{{ object.hours_defended | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/berries_fed.png' %}" height="40"/>
           <p>{{ object.berries_fed | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/great_veteran.png' %}" height="40"/>
           <p>{{ object.great_veteran | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/ultra_veteran.png' %}" height="40"/>
           <p>{{ object.ultra_veteran | intcomma }}</p>
         </div>
-        <div class="col-4">
+        <div class="col-md-2 col-4">
           <img src="{% static 'img/badge/master_veteran.png' %}" height="40"/>
           <p>{{ object.master_veteran | intcomma }}</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="well">
-      <h3>{{ object.name }}'s Trophy Case</h3>
-      <hr/>
-      <p>None Found :(</p>
-    </div>
-  </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+  var radar = new Chart($("#trainer-radar"), {
+      type: 'radar',
+      data: {
+        labels: [
+          'Experience', 'Pokemon Caught', 'Eggs Hatched', 'Pokedex Entries', 
+          'Kilometers Walked', 'Battles Won',
+          'Great League', 'Ultra League', 'Master League'
+        ],
+        datasets: [{
+          label: "{{ object.username }}",
+          scaleOverride: true,
+          scaleSteps: 10,
+          scaleStepWidth: 10,
+          scaleStartValue: 0,
+          data: [
+            ({{ xp }} * 100).toFixed(0),
+            ({{ pc }} * 100).toFixed(0),
+            ({{ eh }} * 100).toFixed(0),
+            ({{ pn }} * 100).toFixed(0),
+            ({{ kw }} * 100).toFixed(0),
+            ({{ bw }} * 100).toFixed(0),
+            ({{ gl }} * 100).toFixed(0),
+            ({{ ul }} * 100).toFixed(0),
+            ({{ ml }} * 100).toFixed(0),
+          ],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scale: {
+          display: true,
+          ticks: {
+            suggestedMax: 100,
+            suggestedMin: 0
+          }
+        },
+        title: {
+          display: true,
+          text: "Trainer Percentiles"
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            label: function(tooltipItems, data) { 
+              return tooltipItems.yLabel + '%';
+            }
+          }
+        },
+     } 
+    });
+});
+</script>
 {% endblock %}

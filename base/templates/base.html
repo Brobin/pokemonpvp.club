@@ -40,7 +40,6 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{% url 'pokemon' %}">Pokemon Stats</a>
                 <a class="dropdown-item" href="{% url 'pvp' %}">PvP IV Spread</a>
-                <a class="dropdown-item" href="#">PvP Team Analysis</a>
               </div>
             </li>
             {% if user.is_authenticated %}
@@ -89,6 +88,7 @@
   {% compress js %}
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'bower_components/chart.js/dist/Chart.min.js' %}"></script>
   {% endcompress %}
   {% block scripts %}{% endblock %}
 </div>

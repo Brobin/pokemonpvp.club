@@ -1,0 +1,22 @@
+{
+  "name": "assets",
+  "authors": [
+    "Brobin <tobin@bulubox.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.2.1",
+    "jquery": "^3.3.1",
+    "chart.js": "^2.7.3"
+  }
+}
