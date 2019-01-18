@@ -78,6 +78,8 @@ class Trainer(BaseModel):
     psychic = models.IntegerField('Psychic', help_text='Psychic Type', blank=True, null=True)
     skier = models.IntegerField('Skier', help_text='Ice Type', blank=True, null=True)
     dragon_tamer = models.IntegerField('Dragon Tamer', help_text='Dragon Type', blank=True, null=True)
+    delinquent = models.IntegerField('Delinquent', help_text='Dark Type', blank=True, null=True)
+    fairy_tale_girl = models.IntegerField('Fairy Tale Girl', help_text='Fairy Type', blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('trainer', kwargs={'name': self.name})

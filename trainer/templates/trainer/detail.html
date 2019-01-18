@@ -2,7 +2,7 @@
 
 {% load humanize staticfiles %}
 
-{% block title %}{{ object.name | intcomma }}{% endblock %}
+{% block title %}{{ object.name | intcomma }} | {{ site.name }}{% endblock %}
 
 {% block content %}
 
@@ -216,6 +216,16 @@
                 <td>
                   <img src="{% static 'img/types/dragon.png' %}" height="30"/>
                   <p>{% if object.dragon_tamer %}{{ object.dragon_tamer | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/types/dark.png' %}" height="30"/>
+                  <p>{% if object.delinquent %}{{ object.delinquent | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/fairy.png' %}" height="30"/>
+                  <p>{% if object.fairy_tale_girl %}{{ object.fairy_tale_girl | intcomma }}{% else %}???{% endif %}</p>
                 </td>
               </tr>
             </table>

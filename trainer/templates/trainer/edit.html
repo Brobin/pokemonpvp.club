@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{% if form.instance.pk %}Editing {{ form.instance.name }}{% else %}Create Your Trainer Profile{% endif %}{% endblock %}
+{% block title %}{% if form.instance.pk %}Editing {{ form.instance.name }}{% else %}Create Your Trainer Profile{% endif %} | {{ site.name }}{% endblock %}
 
 {% load trainer_tags %}
 
