@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'compressor',
     'debug_toolbar',
-    'django_extensions'
+    'django_extensions',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
