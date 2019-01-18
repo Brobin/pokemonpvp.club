@@ -24,5 +24,5 @@ class TrainerForm(forms.ModelForm):
             'black_belt', 'bird_keepr', 'punk_girl', 'ruin_maniac',
             'hiker', 'bug_catcher', 'hex_maniac', 'depot_agent',
             'kindler', 'swimmer', 'gardener', 'rocker', 'psychic',
-            'skier', 'dragon_tamer'
+            'skier', 'dragon_tamer', 'delinquent', 'fairy_tale_girl'
         ]
