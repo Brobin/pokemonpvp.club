@@ -2,10 +2,11 @@
 
 {% load staticfiles humanize leaderboard_tags %}
 
-{% block title %}Pokemon Go Leaderboard{% endblock %}
+{% block title %}{{ site.name }} Leaderboard{% endblock %}
 
 {% block content %}
-<h1>Pokemon Go Leaderboard</h1>
+<h1>{{ site.name }} Leaderboard</h1>
+<hr/>
 
 <div class="row">
   <div class="col-md-4 col-sm-6">
