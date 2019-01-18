@@ -173,3 +173,5 @@ MESSAGE_TAGS = {
 
 from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('trainer-create')
+
+SOCIALACCOUNT_ADAPTER = 'base.providers.DiscordSocialAccountAdapter'

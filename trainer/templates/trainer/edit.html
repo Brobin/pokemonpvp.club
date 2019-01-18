@@ -12,62 +12,191 @@
 <div class="row">
   <div class="col-lg-8 offset-lg-2">
     <div class="well">
-    <form method="post" id="form">
+      <form method="post" id="form">
         {% csrf_token %}
-        <div class="row">
-          <div class="col-sm-12">
-            {% with field=form.name %}{% include "forms/field.html" %}{% endwith %}
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#trainer" role="tab" aria-controls="home" aria-selected="true">Trainer Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#pokedex" role="tab" aria-controls="profile" aria-selected="false">Pokedex</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#pvp" role="tab" aria-controls="profile" aria-selected="false">PvP</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#other" role="tab" aria-controls="contact" aria-selected="false">Other (optional)</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="trainer" role="tabpanel" aria-labelledby="home-tab">
+            <br/>
+            <div class="row">
+              <div class="col-sm-12">
+                {% with field=form.name %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                <label for="{{ form.team.name }}">Team</label>
+                {{ form.team }}
+              </div>
+              <div class="col-sm-8">
+                {% with field=form.xp type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                {% with field=form.jogger type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.collector type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.breeder type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
           </div>
-          <div class="col-sm-4">
-            <label for="{{ form.team.name }}">Team</label>
-            {{ form.team }}
+          <div class="tab-pane fade" id="pokedex" role="tabpanel" aria-labelledby="home-tab">
+            <br/>
+            <div class="row">
+              <div class="col-md-3 col-sm-6">
+                {% with field=form.kanto type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-md-3 col-sm-6">
+                {% with field=form.johto type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-md-3 col-sm-6">
+                {% with field=form.hoenn type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-md-3 col-sm-6">
+                {% with field=form.sinnoh type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
           </div>
-          <div class="col-sm-4">
-            {% with field=form.xp type="number" %}{% include "forms/field.html" %}{% endwith %}
+          <div class="tab-pane fade" id="pvp" role="tabpanel" aria-labelledby="home-tab">
+            <br/>
+            <div class="row">
+              <div class="col-sm-4">
+                {% with field=form.great_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.ultra_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.master_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
           </div>
-          <div class="col-sm-4">
-            {% with field=form.pokedex_number type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.pokemon_caught type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.eggs_hatched type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.kilometers_walked type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.pokestops_spun type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.research_tasks type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.ace_trainer type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.battles_won type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.hours_defended type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.berries_fed type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.great_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.ultra_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-3 col-xs-6">
-            {% with field=form.master_veteran type="number" %}{% include "forms/field.html" %}{% endwith %}
+          <div class="tab-pane fade" id="other" role="tabpanel" aria-labelledby="home-tab">
+            <br/>
+            <h5>Other Achievements</h5>
+            <div class="row">
+              <div class="col-sm-4">
+                {% with field=form.scientist type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.backpacker type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.battle_girl type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.youngster type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.pikachu_fan type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.berry_master type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.gym_leader type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.pokemon_ranger type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.idol type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.gentleman type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.pilot type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.fisherman type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.ace_trainer type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.unown type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.champion type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.battle_legend type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
+            <hr/>
+            <h5>Type Medals</h5>
+            <div class="row">
+              <div class="col-sm-4">
+                {% with field=form.schoolkid type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.black_belt type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.bird_keepr type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.punk_girl type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.ruin_maniac type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.hiker type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.bug_catcher type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.hex_maniac type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.depot_agent type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.kindler type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.swimmer type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.gardener type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.rocker type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.psychic type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.skier type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+              <div class="col-sm-4">
+                {% with field=form.dragon_tamer type="number" %}{% include "forms/field.html" %}{% endwith %}
+              </div>
+            </div>
           </div>
         </div>
-        <br/>
+        <hr/>
         <input type="submit" class="btn btn-primary" value="Save" onclick="$(this).attr('disabled','disabled');$('#form').submit()"/>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>

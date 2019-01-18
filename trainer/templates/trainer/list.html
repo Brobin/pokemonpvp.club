@@ -26,12 +26,9 @@
         <th>Team</th>
         <th>Trainer</th>
         <th>XP</th>
-        <th>Dex</th>
-        <th><img src="{% static 'img/badge/pokemon_caught.png' %}" height="40"/></th>
-        <th><img src="{% static 'img/badge/eggs_hatched.png' %}" height="40"/></th>
-        <th><img src="{% static 'img/badge/kilometers_walked.png' %}" height="40"/></th>
-        <th><img src="{% static 'img/badge/ace_trainer.png' %}" height="40"/></th>
-        <th><img src="{% static 'img/badge/battles_won.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/collector.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/breeder.png' %}" height="40"/></th>
+        <th><img src="{% static 'img/badge/jogger.png' %}" height="40"/></th>
         <th><img src="{% static 'img/badge/great_veteran.png' %}" height="40"/></th>
         <th><img src="{% static 'img/badge/ultra_veteran.png' %}" height="40"/></th>
         <th><img src="{% static 'img/badge/master_veteran.png' %}" height="40"/></th>
@@ -43,12 +40,9 @@
         <td style="padding:10px 20px;"><img src="{% static trainer.team_image %}" height="30"/></td>
         <td><a href="{{ trainer.url }}">{{ trainer.name }}</a></td>
         <td>{{ trainer.xp }}</td>
-        <td>{{ trainer.pokedex_number  }}</td>
-        <td>{{ trainer.pokemon_caught }}</td>
-        <td>{{ trainer.eggs_hatched }}</td>
-        <td>{{ trainer.kilometers_walked }}</td>
-        <td>{{ trainer.ace_trainer }}</td>
-        <td>{{ trainer.battles_won }}</td>
+        <td>{{ trainer.collector  }}</td>
+        <td>{{ trainer.breeder }}</td>
+        <td>{{ trainer.jogger }}</td>
         <td>{{ trainer.great_veteran }}</td>
         <td>{{ trainer.ultra_veteran }}</td>
         <td>{{ trainer.master_veteran }}</td>

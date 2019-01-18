@@ -53,11 +53,9 @@ class TrainerDetail(LoginMixin, DetailView):
         t = context['object']
         # Get all the percentiles for the radar chart
         context['xp'] = Trainer.objects.filter(xp__lte=t.xp).count() / trainers
-        context['pc'] = Trainer.objects.filter(pokemon_caught__lte=t.pokemon_caught).count() / trainers
-        context['eh'] = Trainer.objects.filter(eggs_hatched__lte=t.eggs_hatched).count() / trainers
-        context['pn'] = Trainer.objects.filter(pokedex_number__lte=t.pokedex_number).count() / trainers
-        context['kw'] = Trainer.objects.filter(kilometers_walked__lte=t.kilometers_walked).count() / trainers
-        context['bw'] = Trainer.objects.filter(battles_won__lte=t.battles_won).count() / trainers
+        context['km'] = Trainer.objects.filter(jogger__lte=t.jogger).count() / trainers
+        context['pc'] = Trainer.objects.filter(collector__lte=t.collector).count() / trainers
+        context['eh'] = Trainer.objects.filter(breeder__lte=t.breeder).count() / trainers
         context['gl'] = Trainer.objects.filter(great_veteran__lte=t.great_veteran).count() / trainers
         context['ul'] = Trainer.objects.filter(ultra_veteran__lte=t.ultra_veteran).count() / trainers
         context['ml'] = Trainer.objects.filter(master_veteran__lte=t.master_veteran).count() / trainers
@@ -73,15 +71,7 @@ class TrainerList(LoginMixin, ListView):
     paginate_by = 50
     orderings = [
         ('-xp', 'XP'),
-        ('-pokedex_number', 'Pokedex Entries'),
-        ('-pokemon_caught', 'Pokemon Caught'),
-        ('-eggs_hatched', 'Eggs Hatched'),
-        ('-kilometers_walked', 'Kilometers Walked'),
-        ('-ace_trainer', 'Ace Trainer'),
-        ('-battles_won', 'Battles Won'),
-        ('-great_veteran', 'Great League Wins'),
-        ('-ultra_veteran', 'Ultra League Wins'),
-        ('-master_veteran', 'Master League Wins'),
+        ('-collector', 'Pokemon Caught'),
     ]
 
     def get_context_data(self, *args, **kwargs):

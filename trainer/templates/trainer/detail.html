@@ -2,85 +2,228 @@
 
 {% load humanize staticfiles %}
 
-{% block title %}{{ object.name }}{% endblock %}
+{% block title %}{{ object.name | intcomma }}{% endblock %}
 
 {% block content %}
+
 <div class="row">
-  <div class="col-md-4">
-    <div class="well text-center">
-      <h2>{{ object.name }}{% if object.user == user %}&nbsp;<a href="{% url 'trainer-edit' name=trainer.name %}" class="btn btn-sm btn-primary">Edit</a>{% endif %}</h2>
-      <p><img src="{% static 'img/discord.png' %}" height="30"/> {{ trainer.discord_username }}</p>
-      <hr/>
-      <p><i>Last updated: {{ object.updated_at | date }}</i></p>
-      <h4>Level {{ object.level }} <img src="{% static object.team_image %}" height="40"/></h4>
-      <h5>{{ object.xp | intcomma }} XP</h5>
-      <h6>{{ object.pokedex_number | intcomma }} Pokedex Entries</h6>
-      <hr/>
-      <canvas id="trainer-radar" height="300"></canvas>
+    <div class="col-lg-4">
+      <div class="well text-center">
+        <h2>{{ object.name | intcomma }}{% if object.user == user %}&nbsp;<a href="{% url 'trainer-edit' name=trainer.name %}" class="btn btn-sm btn-primary">Edit</a>{% endif %}</h2>
+        <p><img src="{% static 'img/discord.png' %}" height="30"/> {{ trainer.discord_username }}</p>
+        <hr/>
+        <p><i>Last updated: {{ object.updated_at | date }}</i></p>
+        <h4>Level {{ object.level }} <img src="{% static object.team_image %}" height="40"/></h4>
+        <h5>{{ object.xp | intcomma }} XP</h5>
+        <h6>{{ object.pokedex_entries | intcomma }} Pokedex Entries</h6>
+        <hr/>
+        <canvas id="trainer-radar" height="300"></canvas>
+      </div>
     </div>
-  </div>
-  <div class="col-md-8">
-    <div class="well">
-      <h4>Trophy Case</h4>
-      <hr>
-      <p>Coming Soon!</p>
-    </div>
-    <div class="well">
-      <h4>Achievements</h4>
-      <hr/>
-      <div class="row text-center">
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/pokemon_caught.png' %}" height="40"/>
-          <p>{{ object.pokemon_caught | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/eggs_hatched.png' %}" height="40"/>
-          <p>{{ object.eggs_hatched | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/kilometers_walked.png' %}" height="40"/>
-          <p>{{ object.kilometers_walked | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/pokestops_spun.png' %}" height="40"/>
-          <p>{{ object.pokestops_spun | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/research_tasks.png' %}" height="40"/>
-          <p>{{ object.research_tasks | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/ace_trainer.png' %}" height="40"/>
-          <p>{{ object.ace_trainer | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/battles_won.png' %}" height="40"/>
-          <p>{{ object.battles_won | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/hours_defended.png' %}" height="40"/>
-          <p>{{ object.hours_defended | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/berries_fed.png' %}" height="40"/>
-          <p>{{ object.berries_fed | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/great_veteran.png' %}" height="40"/>
-          <p>{{ object.great_veteran | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/ultra_veteran.png' %}" height="40"/>
-          <p>{{ object.ultra_veteran | intcomma }}</p>
-        </div>
-        <div class="col-md-2 col-4">
-          <img src="{% static 'img/badge/master_veteran.png' %}" height="40"/>
-          <p>{{ object.master_veteran | intcomma }}</p>
+    <div class="col-lg-8">
+      <div class="well">
+        <h4>Trophy Case</h4>
+        <hr>
+        <p>Coming Soon!</p>
+      </div>
+      <div class="well text-center">
+        <div class="row">
+          <div class="col-lg-4">
+            <h5>Core Achievements</h5>
+            <hr/>
+            <table class="table table-borderless table-condensed">
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/collector.png' %}" height="50"/>
+                  <p>{{ object.collector | intcomma }}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/great_veteran.png' %}" height="50"/>
+                  <p>{{ object.great_veteran | intcomma }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/jogger.png' %}" height="50"/>
+                  <p>{{ object.jogger | intcomma }}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/ultra_veteran.png' %}" height="50"/>
+                  <p>{{ object.ultra_veteran | intcomma }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/breeder.png' %}" height="50"/>
+                  <p>{{ object.breeder | intcomma }}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/master_veteran.png' %}" height="50"/>
+                  <p>{{ object.master_veteran | intcomma }}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-4">
+            <h5>Other Achievements</h5>
+            <hr/>
+            <table class="table table-borderless table-condensed">
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/scientist.png' %}" height="30"/>
+                  <p>{% if object.scientist %}{{ object.scientist | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/backpacker.png' %}" height="30"/>
+                  <p>{% if object.backpacker %}{{ object.backpacker | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/battle_girl.png' %}" height="30"/>
+                  <p>{% if object.battle_girl %}{{ object.battle_girl | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/youngster.png' %}" height="30"/>
+                  <p>{% if object.youngster %}{{ object.youngster | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/pikachu_fan.png' %}" height="30"/>
+                  <p>{% if object.pikachu_fan %}{{ object.pikachu_fan | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/berry_master.png' %}" height="30"/>
+                  <p>{% if object.berry_master %}{{ object.berry_master | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/gym_leader.png' %}" height="30"/>
+                  <p>{% if object.gym_leader %}{{ object.gym_leader | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/pokemon_ranger.png' %}" height="30"/>
+                  <p>{% if object.pokemon_ranger %}{{ object.pokemon_ranger | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/idol.png' %}" height="30"/>
+                  <p>{% if object.idol %}{{ object.idol | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/gentleman.png' %}" height="30"/>
+                  <p>{% if object.gentleman %}{{ object.gentleman | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/pilot.png' %}" height="30"/>
+                  <p>{% if object.pilot %}{{ object.pilot | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/fisherman.png' %}" height="30"/>
+                  <p>{% if object.fisherman %}{{ object.fisherman | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/badge/ace_trainer.png' %}" height="30"/>
+                  <p>{% if object.ace_trainer %}{{ object.ace_trainer | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/unown.png' %}" height="30"/>
+                  <p>{% if object.unown %}{{ object.unown | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/champion.png' %}" height="30"/>
+                  <p>{% if object.champion %}{{ object.champion | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/badge/battle_legend.png' %}" height="30"/>
+                  <p>{% if object.battle_legend %}{{ object.battle_legend | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="col-lg-4">
+            <h5>Type Badges</h5>
+            <hr/>
+            <table class="table table-borderless table-condensed">
+              <tr>
+                <td>
+                  <img src="{% static 'img/types/normal.png' %}" height="30"/>
+                  <p>{% if object.schoolkid %}{{ object.schoolkid | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/fighting.png' %}" height="30"/>
+                  <p>{% if object.black_belt %}{{ object.black_belt | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/flying.png' %}" height="30"/>
+                  <p>{% if object.bird_keepr %}{{ object.bird_keepr | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/poison.png' %}" height="30"/>
+                  <p>{% if object.punk_girl %}{{ object.punk_girl | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/types/ground.png' %}" height="30"/>
+                  <p>{% if object.ruin_maniac %}{{ object.ruin_maniac | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/rock.png' %}" height="30"/>
+                  <p>{% if object.hiker %}{{ object.hiker | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/bug.png' %}" height="30"/>
+                  <p>{% if object.bug_catcher %}{{ object.bug_catcher | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/ghost.png' %}" height="30"/>
+                  <p>{% if object.hex_maniac %}{{ object.hex_maniac | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/types/steel.png' %}" height="30"/>
+                  <p>{% if object.depot_agent %}{{ object.depot_agent | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/fire.png' %}" height="30"/>
+                  <p>{% if object.kindler %}{{ object.kindler | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/water.png' %}" height="30"/>
+                  <p>{% if object.swimmer %}{{ object.swimmer | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/grass.png' %}" height="30"/>
+                  <p>{% if object.gardener %}{{ object.gardener | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="{% static 'img/types/electric.png' %}" height="30"/>
+                  <p>{% if object.rocker %}{{ object.rocker | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/psychic.png' %}" height="30"/>
+                  <p>{% if object.psychic %}{{ object.psychic | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/ice.png' %}" height="30"/>
+                  <p>{% if object.skier %}{{ object.skier | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+                <td>
+                  <img src="{% static 'img/types/dragon.png' %}" height="30"/>
+                  <p>{% if object.dragon_tamer %}{{ object.dragon_tamer | intcomma }}{% else %}???{% endif %}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}
 
 {% block scripts %}
@@ -90,8 +233,7 @@ $(document).ready(function(){
       type: 'radar',
       data: {
         labels: [
-          'Experience', 'Pokemon Caught', 'Eggs Hatched', 'Pokedex Entries', 
-          'Kilometers Walked', 'Battles Won',
+          'Experience', 'Kilometers Walked', 'Pokemon Caught', 'Eggs Hatched',
           'Great League', 'Ultra League', 'Master League'
         ],
         datasets: [{
@@ -102,11 +244,9 @@ $(document).ready(function(){
           scaleStartValue: 0,
           data: [
             ({{ xp }} * 100).toFixed(0),
+            ({{ km }} * 100).toFixed(0),
             ({{ pc }} * 100).toFixed(0),
             ({{ eh }} * 100).toFixed(0),
-            ({{ pn }} * 100).toFixed(0),
-            ({{ kw }} * 100).toFixed(0),
-            ({{ bw }} * 100).toFixed(0),
             ({{ gl }} * 100).toFixed(0),
             ({{ ul }} * 100).toFixed(0),
             ({{ ml }} * 100).toFixed(0),
