@@ -9,7 +9,7 @@
   <div class="col-md-4">
     <div class="well text-center">
       <h2>{{ object.name }}{% if object.user == user %}&nbsp;<a href="{% url 'trainer-edit' name=trainer.name %}" class="btn btn-sm btn-primary">Edit</a>{% endif %}</h2>
-      <p>{{ trainer.discord_username }}</p>
+      <p><img src="{% static 'img/discord.png' %}" height="30"/> {{ trainer.discord_username }}</p>
       <hr/>
       <p><i>Last updated: {{ object.updated_at | date }}</i></p>
       <h4>Level {{ object.level }} <img src="{% static object.team_image %}" height="40"/></h4>

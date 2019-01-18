@@ -156,7 +156,6 @@
         <tbody>
           {% for trainer in spin_leaders %}
           <tr>
-            
             <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{{ trainer.url }}">&nbsp;{{ trainer.name }}</a></td>
             <td>{{ trainer.pokestops_spun | intcomma }}</td>
           </tr>

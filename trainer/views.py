@@ -71,4 +71,26 @@ class TrainerList(LoginMixin, ListView):
     queryset = Trainer.objects.order_by('-xp')
     template_name = 'trainer/list.html'
     paginate_by = 50
+    orderings = [
+        ('-xp', 'XP'),
+        ('-pokedex_number', 'Pokedex Entries'),
+        ('-pokemon_caught', 'Pokemon Caught'),
+        ('-eggs_hatched', 'Eggs Hatched'),
+        ('-kilometers_walked', 'Kilometers Walked'),
+        ('-ace_trainer', 'Ace Trainer'),
+        ('-battles_won', 'Battles Won'),
+        ('-great_veteran', 'Great League Wins'),
+        ('-ultra_veteran', 'Ultra League Wins'),
+        ('-master_veteran', 'Master League Wins'),
+    ]
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['orderings'] = self.orderings
+        return context
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', '-xp')
+        if ordering not in [o[0] for o in self.orderings]:
+            return ['-xp']
+        return [ordering, '-xp']
