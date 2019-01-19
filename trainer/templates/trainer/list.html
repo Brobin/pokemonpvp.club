@@ -39,13 +39,13 @@
       <tr>
         <td style="padding:10px 20px;"><img src="{% static trainer.team_image %}" height="30"/></td>
         <td><a href="{{ trainer.url }}">{{ trainer.name }}</a></td>
-        <td>{{ trainer.xp }}</td>
-        <td>{{ trainer.collector  }}</td>
-        <td>{{ trainer.breeder }}</td>
-        <td>{{ trainer.jogger }}</td>
-        <td>{{ trainer.great_veteran }}</td>
-        <td>{{ trainer.ultra_veteran }}</td>
-        <td>{{ trainer.master_veteran }}</td>
+        <td>{{ trainer.xp |intcomma }}</td>
+        <td>{{ trainer.collector | intcomma  }}</td>
+        <td>{{ trainer.breeder | intcomma }}</td>
+        <td>{{ trainer.jogger |intcomma }}</td>
+        <td>{{ trainer.great_veteran |intcomma }}</td>
+        <td>{{ trainer.ultra_veteran |intcomma }}</td>
+        <td>{{ trainer.master_veteran |intcomma }}</td>
       </tr>
       {% endfor %}
     </tbody>

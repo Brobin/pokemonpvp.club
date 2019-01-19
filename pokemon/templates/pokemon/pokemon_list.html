@@ -4,30 +4,43 @@
 
 {% block content %}
 <h1>Pokemon Base Stats</h1>
-<div class="well">
-  <table class="table table-striped table-condensed">
-    <thead>
-      <th>#</th>
-      <th>Name</th>
-      <th>Types</th>
-      <th>Base Att</th>
-      <th>Base Def</th>
-      <th>Base HP</th>
-      <th>Max CP</th>
-    </thead>
-    <tbody>
-      {% for pokemon in object_list %}
-      <tr>
-        <td>{{ pokemon.number }}</td>
-        <td>{{ pokemon.name }}</td>
-        <td>{{ pokemon.type_one }} {% if pokemon.type_two %}, {{ pokemon.type_two }}{% endif %}</td>
-        <td>{{ pokemon.base_attack }}</td>
-        <td>{{ pokemon.base_defense }}</td>
-        <td>{{ pokemon.base_stamina }}</td>
-        <td>{{ pokemon.max_cp }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-4">
+    <input id="search" class="form-control" placeholder="Search..."/>
+    <br/>
+  </div>
+  <div class="col-8">
+    <button class="btn btn-primary">Submit</button>
+  </div>
 </div>
+<div class="well">
+  <div id="pokemon-table" class="table table-condensed"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var table = new Tabulator("#pokemon-table", {
+    ajaxURL: "{% url 'api-pokemon-list' %}",
+    ajaxResponse: function(url, params, response) {
+      return response.results;
+    },
+    layout: "fitColumns",
+    height: '85vh',
+    pagination: "local",
+    paginationSize: 50,
+    columns: [
+      {title: "Number", field: "number"},
+      {title: "Name", field: "name"},
+      {title: "Base Att", field: "base_attack"},
+      {title: "Base Def", field: "base_defense"},
+      {title: "Base HP", field: "base_stamina"},
+      {title: "Max CP", field: "max_cp"},
+    ]
+  });
+
+  $('#search').on('change', function(){
+    table.setFilter("name", "like", $(this).val());
+  });
+</script>
 {% endblock %}
