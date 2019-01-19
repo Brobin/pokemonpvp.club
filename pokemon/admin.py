@@ -13,9 +13,9 @@ class TypeAdmin(admin.ModelAdmin):
 class PokemonAdmin(admin.ModelAdmin):
     list_display = [
         'number', 'name', 'base_attack', 'base_defense',
-        'base_stamina', 'type_one', 'type_two'
+        'base_stamina', 'primary_type', 'secondary_type'
     ]
     list_display_links = ['number', 'name']
     search_fields = ['name']
-    list_filter =['type_one', 'type_two']
+    list_filter = ['primary_type', 'secondary_type']
     ordering = ('number',)

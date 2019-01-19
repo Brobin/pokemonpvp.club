@@ -72,7 +72,7 @@
       </table>
       <a href="{% url 'trainer-list' %}?ordering=-breeder" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.collector as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
+      {% with charts.breeder as stat %}{% include "leaderboard/_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">

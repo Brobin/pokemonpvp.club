@@ -21,12 +21,22 @@ class Pokemon(BaseModel):
     base_attack = models.IntegerField()
     base_defense = models.IntegerField()
     base_stamina = models.IntegerField()
-    type_one = models.ForeignKey(Type,
+    primary_type = models.ForeignKey(Type,
         on_delete=models.DO_NOTHING,
         related_name='primary_typed')
-    type_two = models.ForeignKey(Type, blank=True, null=True,
+    secondary_type = models.ForeignKey(Type, blank=True, null=True,
         on_delete=models.DO_NOTHING,
         related_name='secondary_typed')
+
+    @cached_property
+    def primary_type_name(self):
+        return str(self.primary_type)
+
+    @cached_property
+    def secondary_type_name(self):
+        if self.secondary_type:
+            return str(self.secondary_type)
+        return None
 
     def attack(self, level, att_iv):
         return (self.base_attack + att_iv) * CPM[level]

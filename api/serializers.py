@@ -1,6 +1,25 @@
 from rest_framework import serializers
 
 from trainer.models import Trainer
+from pokemon.models import Type, Pokemon
+
+
+class TypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Type
+        fields = ['name']
+
+
+class PokemonSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Pokemon
+        fields = [
+            'number', 'name', 'base_attack', 'base_defense',
+            'base_stamina', 'primary_type_name',  'secondary_type_name',
+            'max_cp'
+        ]
 
 
 class TrainerSerializer(serializers.ModelSerializer):

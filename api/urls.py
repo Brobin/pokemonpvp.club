@@ -9,6 +9,7 @@ from . import views
 
 router = DefaultRouter()
 
+router.register('pokemon', views.PokemonViewSet, 'api-pokemon')
 router.register('trainers', views.TrainerViewSet, 'api-trainers')
 
 urlpatterns = [
