@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Type Matchups | {{ site.name }}{% endblock %}
+
+{% block content %}
+<h1>Pokemon Type Matchups</h1>
+<br/>
+<table class="table table-bordered table-condensed" style-="width:auto;max-width:100%;">
+  <thead>
+    <th></th>
+    {% for type in object_list %}
+    <th>{{ type.name | title }}</th>
+    {% endfor %}
+  </thead>
+  <tbody>
+    {% for type in object_list %}
+    <tr>
+      <td><b>{{ type.name | title }}</b></td>
+      {% for m in type.attacking %}
+      <td class="{{ m.bg_class }}">{{ m.multiplier | floatformat }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

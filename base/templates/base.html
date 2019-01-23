@@ -31,6 +31,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{% url 'pokemon' %}">Pokemon Stats</a>
                   <a class="dropdown-item" href="{% url 'pvp' %}">PvP IV Spread</a>
+                  <a class="dropdown-item" href="{% url 'types' %}">Type Matchups</a>
                 </div>
               </li>
             <li class="nav-item dropdown">
@@ -65,7 +66,7 @@
       </div>
     </nav>
     <div class="page-content">
-      <div class="container">
+      <div class="container{% if container_fluid %}-fluid{% endif %}">
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-dismissible alert-{{ message.tags }}">

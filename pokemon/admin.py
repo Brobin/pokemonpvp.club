@@ -1,12 +1,17 @@
 from django.contrib import admin
 
-from .models import Type, Pokemon
+from .models import Type, TypeMatchup, Pokemon
 
 
 @admin.register(Type)
 class TypeAdmin(admin.ModelAdmin):
     list_display = ['name']
     list_display_links = ['name']
+
+
+@admin.register(TypeMatchup)
+class TypeMatchupAdmin(admin.ModelAdmin):
+    list_display = ['attacking_type', 'defending_type', 'multiplier']
 
 
 @admin.register(Pokemon)

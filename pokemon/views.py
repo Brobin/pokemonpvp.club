@@ -1,15 +1,22 @@
 from django.contrib import messages
+from django.conf import settings
 from django.core.cache import cache
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
 from math import floor
 
-from .models import Pokemon
+from .models import Pokemon, Type
 
 
 class PokemonView(ListView):
+    template_name = 'pokemon/base_stats.html'
     queryset = Pokemon.objects.order_by('number')
+
+
+class TypeMatchupsView(ListView):
+    template_name = 'pokemon/type_matchups.html'
+    queryset = Type.objects.order_by('name')
 
 
 class PvpIVSpread(TemplateView):
@@ -37,14 +44,15 @@ class PvpIVSpread(TemplateView):
 
         key = pokemon.name + str(context['max_cp'])
         combos = cache.get(key)
-        if not combos:
+        if not combos or settings.DEBUG:
             combos = list(self.get_combos(pokemon, max_cp))
             cache.set(key, combos, 60*60*24*7)
-        context['combos'] = combos
-        max_product = combos[-1][-2]
+        context['combos'] = combos[0:50]
+        max_product = combos[0][-2]
         context['my_combo'] = self.get_my_combo(
             pokemon, context['att_iv'], context['def_iv'],
             context['sta_iv'], max_cp, max_product)
+        context['rank'] = combos.index(context['my_combo']) + 1
         return context
 
     def get_my_combo(self, pokemon, att_iv, def_iv, sta_iv, max_cp, max_product):
@@ -52,12 +60,12 @@ class PvpIVSpread(TemplateView):
             cp, _sum, product = pokemon.all_stats(level/2.0, att_iv, def_iv, sta_iv)
             if cp <= max_cp:
                 return (
-                    level/2.0, att_iv, def_iv, sta_iv, cp, product,_sum
+                    level/2.0, att_iv, def_iv, sta_iv, cp, product, product / max_product * 100
                 )
 
     def get_combos(self, pokemon, max_cp):
         if pokemon.max_cp <= max_cp:
-            yield (40, 15, 15, 15, pokemon.max_cp, pokemon.max_stat_product, pokemon.max_stat_sum)
+            yield (40, 15, 15, 15, pokemon.max_cp, pokemon.max_stat_product)
             return
         combos = []
         for hp in reversed(range(0, 16)):
@@ -66,9 +74,10 @@ class PvpIVSpread(TemplateView):
                     for lvl in reversed(range(20, 81)):
                         cp, _sum, prod = pokemon.all_stats(lvl/2.0, at, de, hp)
                         if cp <= max_cp:
-                            combos.append((lvl/2.0, at, de, hp, cp, prod, _sum))
+                            combos.append((lvl/2.0, at, de, hp, cp, prod))
                             break
         combos.sort(key=lambda x: x[-1], reverse=True)
-        for c in combos[0:50]:
-            yield c
+        _max = combos[0][-1]
+        for c in combos:
+            yield c + (c[-1]/_max *100.0,)
 

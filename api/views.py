@@ -14,8 +14,6 @@ log = logging.getLogger(__name__)
 
 
 class PokemonViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'list']
     queryset = Pokemon.objects.order_by('number')
     serializer_class = PokemonSerializer

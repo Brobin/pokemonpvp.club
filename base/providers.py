@@ -1,5 +1,4 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-from allauth.account.utils import user_username
 
 
 class DiscordSocialAccountAdapter(DefaultSocialAccountAdapter):

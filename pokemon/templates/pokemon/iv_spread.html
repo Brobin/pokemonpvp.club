@@ -60,25 +60,36 @@
   <table class="table table-condensed">
     <thead>
       <tr>
+        <th>Rank</th>
         <th>Level</th>
         <th>Att IV</th>
         <th>Def IV</th>
         <th>HP IV</th>
         <th>CP</th>
         <th>Stat Product</th>
-        <th>Sum of Stats</th>
+        <th>% Max Stat Product</th>
       </tr>
     </thead>
     <tbody>
       <tr class="table-active">
+        <td>{{ rank }}</td>
         {% for stat in my_combo %}
+        {% if forloop.last %}
+        <td>{{ stat | floatformat }}%</td>
+        {% else %}
         <td>{{ stat }}</td>
+        {% endif %}
         {% endfor %}
       </tr>
       {% for c in combos %}
       <tr>
+        <td>{{ forloop.counter }}</td>
         {% for stat in c %}
+        {% if forloop.last %}
+        <td>{{ stat | floatformat }}%</td>
+        {% else %}
         <td>{{ stat }}</td>
+        {% endif %}
         {% endfor %}
       </tr>
       {% endfor %}

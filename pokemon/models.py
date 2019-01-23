@@ -11,8 +11,30 @@ from .constants import CPM
 class Type(BaseModel):
     name = models.CharField(max_length=12)
 
+    @cached_property
+    def attacking(self):
+        return self.attacking_matchups.order_by('defending_type__name')
+
     def __str__(self):
         return self.name.title()
+
+
+class TypeMatchup(BaseModel):
+    attacking_type = models.ForeignKey(Type, related_name='attacking_matchups',
+        on_delete=models.DO_NOTHING)
+    defending_type = models.ForeignKey(Type, related_name='defending_matchups',
+        on_delete=models.DO_NOTHING)
+    multiplier = models.DecimalField(max_digits=4, decimal_places=3)
+
+    @cached_property
+    def bg_class(self):
+        if self.multiplier > 1:
+            return 'bg-success'
+        if self.multiplier < 1:
+            if self.multiplier < 0.6:
+                return 'bg-danger'
+            return 'bg-warning'
+        return 'bg-light'
 
 
 class Pokemon(BaseModel):

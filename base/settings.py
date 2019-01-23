@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.discord',
 
     'api',
+    'base',
     'leaderboard',
     'pokemon',
     'trainer',
