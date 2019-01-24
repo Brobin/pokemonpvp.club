@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% load staticfiles pokemon_tags %}
+
+{% block title %}{{ object.name }} | {{ site.name }}{% endblock %}
+
+{% block content %}
+<h1>#{{ object.number }} {{ object.name }}</h1>
+<hr/>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <img src="{{ object.image }}"/>
+      <table class="table table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Stamina</th>
+            <th>Max CP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ object.base_attack }}</td>
+            <td>{{ object.base_defense }}</td>
+            <td>{{ object.base_stamina }}</td>
+            <td>{{ object.max_cp }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="well">
+      <h3>Weaknesses/Resistances</h3>
+      <table class="table-striped table-condensed">
+        <thead>
+          <tr>
+            <th>Types</th>
+            <th>Effectiveness</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for type in types %}
+          <tr>
+            <td>{{ type }}</td>
+            <td>{{ type | effectiveness:object | percentage }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

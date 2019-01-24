@@ -18,7 +18,7 @@ class PokemonSerializer(serializers.ModelSerializer):
         fields = [
             'number', 'name', 'base_attack', 'base_defense',
             'base_stamina', 'primary_type_name',  'secondary_type_name',
-            'max_cp'
+            'max_cp', 'image'
         ]
 
 

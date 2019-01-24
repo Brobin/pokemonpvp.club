@@ -2,16 +2,33 @@ from django.contrib import messages
 from django.conf import settings
 from django.core.cache import cache
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from math import floor
 
 from .models import Pokemon, Type
 
 
-class PokemonView(ListView):
+class PokemonBaseStats(ListView):
     template_name = 'pokemon/base_stats.html'
     queryset = Pokemon.objects.order_by('number')
+
+
+class PokemonList(ListView):
+    template_name = 'pokemon/list.html'
+    queryset = Pokemon.objects.order_by('number')
+
+
+class PokemonDetail(DetailView):
+    template_name = 'pokemon/detail.html'
+    model = Pokemon
+    slug_field = 'number'
+    slug_url_kwarg = 'number'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['types'] = Type.objects.order_by('name')
+        return context
 
 
 class TypeMatchupsView(ListView):
@@ -64,9 +81,6 @@ class PvpIVSpread(TemplateView):
                 )
 
     def get_combos(self, pokemon, max_cp):
-        if pokemon.max_cp <= max_cp:
-            yield (40, 15, 15, 15, pokemon.max_cp, pokemon.max_stat_product)
-            return
         combos = []
         for hp in reversed(range(0, 16)):
             for de in reversed(range(0, 16)):

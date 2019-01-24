@@ -12,6 +12,10 @@ class Type(BaseModel):
     name = models.CharField(max_length=12)
 
     @cached_property
+    def image(self):
+        return 'img/types/{0}.png'.format(self.name.lower())
+
+    @cached_property
     def attacking(self):
         return self.attacking_matchups.order_by('defending_type__name')
 
@@ -49,6 +53,12 @@ class Pokemon(BaseModel):
     secondary_type = models.ForeignKey(Type, blank=True, null=True,
         on_delete=models.DO_NOTHING,
         related_name='secondary_typed')
+
+    @cached_property
+    def image(self):
+        return 'https://img.pokemondb.net/artwork/{0}.jpg'.format(
+            self.name.lower().replace(' ', '-')
+        )
 
     @cached_property
     def primary_type_name(self):

@@ -29,8 +29,12 @@
     height: '85vh',
     pagination: "local",
     paginationSize: 50,
+    rowClick: function(e, row){
+      window.location = '/pokemon/' + row._row.data.number;
+    },
     columns: [
       {title: "Number", field: "number"},
+      {title: "Image", field: "image", formatter: "image", formatterParams:{height:"50px"}},
       {title: "Name", field: "name"},
       {title: "Base Att", field: "base_attack"},
       {title: "Base Def", field: "base_defense"},
