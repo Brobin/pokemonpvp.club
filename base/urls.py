@@ -11,6 +11,7 @@ urlpatterns = [
     path('auth/', include('allauth.urls')),
     path('leaderboard/', include('leaderboard.urls')),
     path('pokemon/', include('pokemon.urls')),
+    path('pvp/', include('pokemon.urls_pvp')),
     path('trainer/', include('trainer.urls')),
     path('legal/', TemplateView.as_view(template_name='legal.html'), name='legal'),
     path('', IndexView.as_view(), name='index'),

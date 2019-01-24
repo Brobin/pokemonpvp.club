@@ -20,7 +20,7 @@ class TypeMatchupsView(ListView):
 
 
 class PvpIVSpread(TemplateView):
-    template_name = 'pokemon/iv_spread.html'
+    template_name = 'pokemon/pvp/iv_spread.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -47,7 +47,7 @@ class PvpIVSpread(TemplateView):
         if not combos or settings.DEBUG:
             combos = list(self.get_combos(pokemon, max_cp))
             cache.set(key, combos, 60*60*24*7)
-        context['combos'] = combos[0:50]
+        context['combos'] = combos[0:25]
         max_product = combos[0][-2]
         context['my_combo'] = self.get_my_combo(
             pokemon, context['att_iv'], context['def_iv'],
