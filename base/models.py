@@ -3,6 +3,17 @@ import uuid
 from django.db import models
 
 
+class Cache(models.Model):
+    cache_key = models.CharField(max_length=255, primary_key=True)
+    value = models.TextField()
+    expires = models.DateTimeField()
+
+    class Meta:
+        verbose_name = 'Cache Object'
+        verbose_name_plural = 'Cache Objects'
+        db_table = 'cache'
+
+
 class BaseModel(models.Model):
     """BaseModel
     Base model that handles ids, uuid, and both the created_at
