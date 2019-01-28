@@ -95,3 +95,27 @@ class PvpIVSpread(TemplateView):
         for c in combos:
             yield c + (c[-1]/_max *100.0,)
 
+
+class BestPokemon(TemplateView):
+    template_name = 'pokemon/pvp/best_pokemon.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['rankings'] = []
+        for pokemon in Pokemon.objects.all():
+            best = self.get_combos(pokemon, 1500)
+            context['rankings'].append(best)
+        context['rankings'].sort(key=lambda x: x[-1], reverse=True)
+        return context
+
+    def get_combos(self, pokemon, max_cp):
+        combos = []
+        for hp in reversed(range(0, 16)):
+            for de in reversed(range(0, 16)):
+                for at in range(0, 16):
+                    for lvl in reversed(range(20, 81)):
+                        cp, _sum, prod = pokemon.all_stats(lvl/2.0, at, de, hp)
+                        if cp <= max_cp:
+                            combos.append((pokemon.name, lvl/2.0, at, de, hp, cp, prod))
+        combos.sort(key=lambda x: x[-1], reverse=True)
+        return combos[0]
