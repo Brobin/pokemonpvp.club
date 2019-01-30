@@ -97,6 +97,13 @@
   <script src="{% static 'bower_components/tabulator/dist/js/tabulator.min.js' %}"></script>
   {% endcompress %}
   {% block scripts %}{% endblock %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-48506325-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-48506325-5');
+  </script>
 </div>
 </body>
 </html>
