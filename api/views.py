@@ -26,4 +26,8 @@ class TrainerViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'list']
     queryset = Trainer.objects.order_by('id')
     serializer_class = TrainerSerializer
+    lookup_field = 'name'
+
+
+class TrainerUsernameViewSet(TrainerViewSet):
     lookup_field = 'user__username'
