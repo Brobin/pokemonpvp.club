@@ -57,7 +57,7 @@
   </div>
 </form>
 <div class="well" style="margin-top:20px;">
-  <table class="table table-condensed">
+  <table class="table table-condensed table-striped">
     <thead>
       <tr>
         <th>Rank</th>
@@ -72,8 +72,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-active">
-        <td>{{ rank }}</td>
+      <tr class="table-{% if rank <= 512 %}success{% elif rank <= 1024 %}warning{% else %}danger{% endif %}">
+        <td><b>{{ rank }}</b></td>
         <td>{{my_combo.0}}</td>
         <td>{{my_combo.1}} / {{my_combo.2}} / {{my_combo.3}}</td>
         <td>{{my_combo.7}}</td>
