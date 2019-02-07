@@ -74,10 +74,10 @@ class PvpIVSpread(TemplateView):
 
     def get_my_combo(self, pokemon, att_iv, def_iv, sta_iv, max_cp, max_product):
         for level in reversed(range(20, 81)):
-            cp, _sum, product = pokemon.all_stats(level/2.0, att_iv, def_iv, sta_iv)
+            cp, a, d, s, product = pokemon.all_stats(level/2.0, att_iv, def_iv, sta_iv)
             if cp <= max_cp:
                 return (
-                    level/2.0, att_iv, def_iv, sta_iv, cp, product, product / max_product * 100
+                    level/2.0, att_iv, def_iv, sta_iv, a, d, s, cp, product, product / max_product * 100
                 )
 
     def get_combos(self, pokemon, max_cp):
@@ -86,9 +86,9 @@ class PvpIVSpread(TemplateView):
             for de in reversed(range(0, 16)):
                 for at in reversed(range(0, 16)):
                     for lvl in reversed(range(20, 81)):
-                        cp, _sum, prod = pokemon.all_stats(lvl/2.0, at, de, hp)
+                        cp, a, d, s, prod = pokemon.all_stats(lvl/2.0, at, de, hp)
                         if cp <= max_cp:
-                            combos.append((lvl/2.0, at, de, hp, cp, prod))
+                            combos.append((lvl/2.0, at, de, hp, a, d, s, cp, prod))
                             break
         combos.sort(key=lambda x: x[-1], reverse=True)
         _max = combos[0][-1]

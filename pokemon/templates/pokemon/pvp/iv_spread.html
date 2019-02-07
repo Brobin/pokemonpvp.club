@@ -62,35 +62,38 @@
       <tr>
         <th>Rank</th>
         <th>Level</th>
-        <th>Att IV</th>
-        <th>Def IV</th>
-        <th>HP IV</th>
+        <th>IVs (A/D/S)</th>
         <th>CP</th>
-        <th>Stat Product</th>
+        <th class="hidden-sm">Att</th>
+        <th class="hidden-sm">Def</th>
+        <th class="hidden-sm">Sta</th>
+        <th class="hidden-xs">Stat Product</th>
         <th>% Max Stat</th>
       </tr>
     </thead>
     <tbody>
       <tr class="table-active">
         <td>{{ rank }}</td>
-        {% for stat in my_combo %}
-        {% if forloop.last %}
-        <td>{{ stat | floatformat }}%</td>
-        {% else %}
-        <td>{{ stat }}</td>
-        {% endif %}
-        {% endfor %}
+        <td>{{my_combo.0}}</td>
+        <td>{{my_combo.1}} / {{my_combo.2}} / {{my_combo.3}}</td>
+        <td>{{my_combo.7}}</td>
+        <td class="hidden-sm">{{my_combo.4|floatformat:2}}</td>
+        <td class="hidden-sm">{{my_combo.5|floatformat:2}}</td>
+        <td class="hidden-sm">{{my_combo.6}}</td>
+        <td class="hidden-xs">{{my_combo.8}}</td>
+        <td>{{my_combo.9|floatformat:2}}%</td>
       </tr>
       {% for c in combos %}
       <tr>
         <td>{{ forloop.counter }}</td>
-        {% for stat in c %}
-        {% if forloop.last %}
-        <td>{{ stat | floatformat }}%</td>
-        {% else %}
-        <td>{{ stat }}</td>
-        {% endif %}
-        {% endfor %}
+        <td>{{c.0}}</td>
+        <td>{{c.1}} / {{c.2}} / {{c.3}}</td>
+        <td>{{c.7}}</td>
+        <td class="hidden-sm">{{c.4|floatformat:2}}</td>
+        <td class="hidden-sm">{{c.5|floatformat:2}}</td>
+        <td class="hidden-sm">{{c.6}}</td>
+        <td class="hidden-xs">{{c.8}}</td>
+        <td>{{c.9|floatformat:2}}%</td>
       </tr>
       {% endfor %}
     </tbody>

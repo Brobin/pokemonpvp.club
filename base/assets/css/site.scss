@@ -135,3 +135,15 @@ p.error {
 img {
   max-width: 100%;
 }
+
+@media(max-width: 1024px) {
+  .hidden-sm {
+    display: none;
+  }
+}
+@media(max-width: 768px) {
+  .hidden-xs {
+    display: none;
+  }
+}
+

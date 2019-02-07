@@ -93,7 +93,13 @@ class Pokemon(BaseModel):
         _def = self.defense(level, def_iv)
         _sta = self.stamina(level, sta_iv)
         cp = int(max(floor(_att * _def**0.5 *  _sta**0.5) / 10, 10))
-        return cp, floor(sum([_att, _def, _sta])), floor(_att) * floor(_def) * floor(_sta)
+        return (
+            cp,
+            _att,
+            _def,
+            floor(_sta),
+            round(_att * _def * floor(_sta))
+        )
 
     @cached_property
     def max_cp(self):
