@@ -14,6 +14,7 @@ router.register('trainers', views.TrainerUsernameViewSet, 'api-trainers-username
 router.register('trainers', views.TrainerViewSet, 'api-trainers')
 
 urlpatterns = [
+    path('pvp/iv/<str:name>/<int:cp>', views.PvPIVAPI.as_view(), name='pvp-iv-api'),
     path('docs', include_docs_urls(title='Pokemon PvP Club API')),
     path('', include(router.urls))
 ]
