@@ -42,6 +42,11 @@ class TrainerUsernameViewSet(TrainerViewSet):
 
 
 class PvPIVAPI(PvpIVSpread, APIView):
+    """
+    list:
+    Get a list of all 4096 IV combinations with ranking and stat product 
+    for the specified pokemon and max CP.
+    """
 
     def get(self, request, name, cp):
         try:
