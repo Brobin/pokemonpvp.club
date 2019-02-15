@@ -1,7 +1,11 @@
 import logging
+import operator
+
+from functools import reduce
 
 from django.conf import settings
 from django.core.cache import cache
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from rest_framework import status
@@ -21,6 +25,19 @@ from .serializers import PokemonSerializer, TrainerSerializer
 log = logging.getLogger(__name__)
 
 
+class MultipleFieldLookupMixin(object):
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        queryset = self.filter_queryset(queryset)
+        filters = {
+            field: self.kwargs[self.lookup_field]
+            for field in self.lookup_fields
+        }
+        q = reduce(operator.or_, (Q(x) for x in filters.items()))
+        return get_object_or_404(queryset, q)
+
+
 class PokemonViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'list']
     queryset = Pokemon.objects.order_by('number')
@@ -28,15 +45,12 @@ class PokemonViewSet(viewsets.ModelViewSet):
     lookup_field = 'number'
 
 
-class TrainerViewSet(viewsets.ModelViewSet):
+class TrainerViewSet(MultipleFieldLookupMixin, viewsets.ModelViewSet):
     http_method_names = ['get', 'list']
     queryset = Trainer.objects.order_by('id')
     serializer_class = TrainerSerializer
     lookup_field = 'name'
-
-
-class TrainerUsernameViewSet(TrainerViewSet):
-    lookup_field = 'user__username'
+    lookup_fields = ('name', 'user__username')
 
 
 class PvPIVAPI(PvpIVSpread, APIView):
@@ -44,6 +58,9 @@ class PvPIVAPI(PvpIVSpread, APIView):
     list:
     Get a list of all 4096 IV combinations with ranking and stat product 
     for the specified pokemon and max CP.
+
+    cp: Max CP of the pokemon (ie. 1500 or 2500)
+
     """
 
     def get(self, request, name, cp):
