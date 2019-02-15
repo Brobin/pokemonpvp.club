@@ -29,8 +29,6 @@ class PokemonViewSet(viewsets.ModelViewSet):
 
 
 class TrainerViewSet(viewsets.ModelViewSet):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
-    permission_classes = (IsAuthenticated,)
     http_method_names = ['get', 'list']
     queryset = Trainer.objects.order_by('id')
     serializer_class = TrainerSerializer
