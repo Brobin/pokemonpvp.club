@@ -8,10 +8,10 @@
 <p><i>{{ articles }} Article{{ articles|pluralize }} written by {{ editors }} Author{{ editors|pluralize }}</i></p>
 <form method="get" action="{% url 'wiki-search' %}">
   <div class="row">
-    <div class="col-sm-8 col-10">
+    <div class="col-8">
       <input name="q" placeholder="Search" class="form-control"/>
     </div>
-    <div class="col-sm-4 col-2">
+    <div class="col-4">
       <input type="submit" value="Search" class="btn btn-success"/>
     </div>
   </div>
