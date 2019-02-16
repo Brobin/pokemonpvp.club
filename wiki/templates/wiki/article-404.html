@@ -1,0 +1,9 @@
+{% extends "wiki/base.html" %}
+{% load staticfiles %}
+
+{% block title %}Article Not Found{% endblock %}
+
+{% block body_content %}
+<h2>Article Not Found! <a href="{% url 'admin:wiki_article_add' %}?title={{ title }}" class="btn btn-primary">Create This Article!</a></h2>
+<h1 class="error">404</h1>
+{% endblock %}

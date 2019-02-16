@@ -1,0 +1,5 @@
+<h3>Wiki Tags</h3>
+<hr/>
+{% for tag in tags %}
+<span class="badge"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }} <span class="badge-count">{{ tag.articles }}</span></a></span>
+{% endfor %}

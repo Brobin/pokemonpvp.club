@@ -39,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 
     'compressor',
     'debug_toolbar',
+    'debug_permissions',
     'django_extensions',
     'rest_framework',
+    'taggit',
+    'markdownx',
 
     'allauth',
     'allauth.account',
@@ -55,6 +59,7 @@ INSTALLED_APPS = [
     'leaderboard',
     'pokemon',
     'trainer',
+    'wiki',
 ]
 
 MIDDLEWARE = [
@@ -189,6 +194,21 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'errors',
     'PAGE_SIZE': 1000,
 }
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.sane_lists',
+]
+MARKDOWNX_MARKDOWNIFY_FUNCTION = 'wiki.utils.markdownify'
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 try:
     from .local import *

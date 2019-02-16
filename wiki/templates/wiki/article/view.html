@@ -1,0 +1,19 @@
+{% extends "wiki/base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body_content %}
+<h1>{{ article.title }}{% if perms.wiki.editor %}<a href="{% url 'wiki-article-edit' article.id %}" class="btn btn-primary" style="float:right;">Edit Article</a>{% endif %}</h1>
+<h4><a href="{{ article.topic.url }}">{{ article.topic }}</a></h4>
+
+{% with article.latest_edit.editor as editor %}
+<p>Last updated by {% if editor.trainer %}{{ editor.trainer.trainer_name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
+{% endwith %}
+
+{% for tag in article.tags.all %}<span class="badge" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }}</a></span> {% endfor %}
+<hr/>
+<div class="well">
+  {{ article.rendered_content|safe }}
+</div>
+{% endblock %}

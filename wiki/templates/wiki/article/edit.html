@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Editing {{ article.title }}{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Editing {{ article.title }}{% else %}Create an Article{% endif %}</h1>
+<hr/>
+<form method="post">
+  {% csrf_token %}
+  <div class="row">
+    {% if form.author %}
+    <input type="hidden" name="{{ form.author.name }}" value="{{ user.pk }}"/>
+    {% endif %}
+    <div class="col-md-6">
+      <label for="{{ form.title.name }}">Title</label>
+      {{ form.title }}
+    </div>
+    <div class="col-md-6">
+      <label for="{{ form.tags.name }}">Tags</label>
+      {{ form.tags }}
+    </div>
+  </div>
+  {{ form.content }}
+  {{ form.media }}
+  <hr/>
+  <input type="submit" class="btn btn-primary" value="Save Article"/>
+</form>
+{% endblock %}

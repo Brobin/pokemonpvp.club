@@ -146,3 +146,42 @@ img {
     display: none;
   }
 }
+
+p.light {
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+  color: $gray-600;
+}
+
+.badge {
+  font-size: 14px;
+  font-weight: bold;
+  color: #eee;
+  background-color: $cyan;
+  padding: 3px 0 3px 7px;
+  margin-bottom: 2px;
+  margin-right: 4px;
+  border-radius: 14px;
+  a {
+    color: #eee;
+  }
+  a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  a:active {
+    text-decoration: none
+  }
+  &:hover {
+    background-color: darken($cyan, 10%);
+  }
+  .badge-count {
+    height: 100%;
+    color: #3591AB;
+    background-color: #eee;
+    border: 1px solid $cyan;
+    border-radius: 10px;
+    padding: 0 5px;
+    padding-bottom: 1px;
+  }
+}
