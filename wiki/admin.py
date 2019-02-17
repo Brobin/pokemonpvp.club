@@ -21,7 +21,7 @@ class ArtcleEditInline(admin.TabularInline):
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'created_at', 'updated_at']
     list_display_links = ['title']
-    fields = ['title','tags', 'pokemon', 'content', ]
+    fields = ['title', 'tags', 'pokemon', 'content']
     inlines = [ArtcleEditInline]
 
     formfield_overrides = {

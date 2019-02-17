@@ -138,7 +138,7 @@ class Pokemon(BaseModel):
         return self.stat_product(40, 15, 15, 15)
 
     def __str__(self):
-        return '#{0} {1}'.format(self.number, self.name)
+        return self.name
 
     class Meta:
         verbose_name_plural = 'Pokemon'
