@@ -1,18 +1,20 @@
 {% extends "wiki/base.html" %}
-{% load wiki_tags %}
+{% load wiki_tags staticfiles %}
 
 {% block title %}Search Results | Wiki{% endblock %}
 
 {% block body_content %}
-<h3>{% if tag %}Articles tagged <b>{{ tag.name }}</b>{% elif search %}Search results for <b>{{ search }}</b>{% endif %}</h3>
+{% include "wiki/partials/wiki-search.html" %}
+<hr/>
+<h3>{% if tag %}{{ page_obj.paginator.count }} Article{{ page_obj.paginator.count|pluralize }} tagged <b>{{ tag.name }}</b>{% elif search %}{{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize }} for <b>{{ search }}</b>{% endif %}</h3>
 
 {% for result in page_obj.object_list %}
 {% with result.object|default:result as article %}
 {% include "wiki/partials/article-item.html" %}
 {% endwith %}
 {% empty %}
-<h2>No Articles Found :(</h2>
 <p>Try a different search or tag</p>
+<img src="{% static 'img/break.gif' %}"/>
 {% endfor %}
 {% if page_obj.paginator.num_pages > 1 %}
 <center>

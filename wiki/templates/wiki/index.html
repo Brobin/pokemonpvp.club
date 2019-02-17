@@ -4,19 +4,10 @@
 {% block title %}Pokemon PvP Wiki{% endblock %}
 
 {% block body_content %}
-<h1>Pokemon PvP Wiki {% if perms.wiki.editor %}<a href="{% url 'wiki-article-create' %}" class="btn btn-primary float-right">Add Article</a>{% endif %}</h1>
-<p><i>{{ articles }} Article{{ articles|pluralize }} written by {{ editors }} Author{{ editors|pluralize }}</i></p>
-<form method="get" action="{% url 'wiki-search' %}">
-  <div class="row">
-    <div class="col-8">
-      <input name="q" placeholder="Search" class="form-control"/>
-    </div>
-    <div class="col-4">
-      <input type="submit" value="Search" class="btn btn-success"/>
-    </div>
-  </div>
-</form>
+{% include "wiki/partials/wiki-search.html" %}
 <hr/>
+<p><i>{{ articles }} Article{{ articles|pluralize }} written by {{ editors }} Author{{ editors|pluralize }}</i></p>
+
 {% for article in recent %}
 {% include "wiki/partials/article-item.html" %}
 {% endfor %}

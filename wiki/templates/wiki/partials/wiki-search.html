@@ -1,0 +1,11 @@
+<h1>Pokemon PvP Wiki {% if perms.wiki.editor %}<a href="{% url 'wiki-article-create' %}" class="btn btn-primary float-right">Add Article</a>{% endif %}</h1>
+<form method="get" action="{% url 'wiki-search' %}">
+  <div class="row">
+    <div class="col-8">
+      <input name="q" placeholder="Search" class="form-control"{% if requst.GET.q %}value="{{ request.GET.q }}"{% endif %}s/>
+    </div>
+    <div class="col-4">
+      <input type="submit" value="Search" class="btn btn-success"/>
+    </div>
+  </div>
+</form>
