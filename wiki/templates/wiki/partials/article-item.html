@@ -1,5 +1,6 @@
 <div class="article-item well">
   <h2><a href="{{ article.url }}">{{ article.title}}</a></h2>
+  {% for tag in article.tags.all %}<span class="badge" style="padding-right:7px;">{{ tag.name }}</span> {% endfor %}
   {% with article.latest_edit.editor as editor %}
   <p class="font-italic light">Last updated by {% if editor.trainer %}{{ editor.trainer.name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
   {% endwith %}
