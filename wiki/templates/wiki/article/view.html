@@ -8,7 +8,7 @@
 <h4><a href="{{ article.topic.url }}">{{ article.topic }}</a></h4>
 
 {% with article.latest_edit.editor as editor %}
-<p>Last updated by {% if editor.trainer %}{{ editor.trainer.trainer_name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
+<p>Last updated by {% if editor.trainer %}{{ editor.trainer.name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
 {% endwith %}
 
 {% for tag in article.tags.all %}<span class="badge" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }}</a></span> {% endfor %}
