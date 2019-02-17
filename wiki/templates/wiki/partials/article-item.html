@@ -1,7 +1,7 @@
 <div class="article-item well">
   <h2><a href="{{ article.url }}">{{ article.title}}</a></h2>
   {% with article.latest_edit.editor as editor %}
-  <p class="font-italic light">Last updated by {% if editor.trainer %}{{ editor.trainer.trainer_name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
+  <p class="font-italic light">Last updated by {% if editor.trainer %}{{ editor.trainer.name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
   {% endwith %}
   <p>{{ article.rendered_content|striptags|truncatechars:250 }}</p>
 </div>
