@@ -64,7 +64,8 @@ class WikiEditMixin(object):
 
     def form_valid(self, form):
         article = form.save(commit=False)
-        article.author = self.request.user
+        if not article.id:
+            article.author = self.request.user
         article.save()
         form.save_m2m()
         return redirect(self.get_success_url(article))
