@@ -12,13 +12,17 @@
     {% if form.author %}
     <input type="hidden" name="{{ form.author.name }}" value="{{ user.pk }}"/>
     {% endif %}
-    <div class="col-md-6">
+    <div class="col-md-5">
       <label for="{{ form.title.name }}">Title</label>
       {{ form.title }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4 col-sm-6">
       <label for="{{ form.tags.name }}">Tags</label>
       {{ form.tags }}
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <label>Pokemon</label>
+      {{ form.pokemon }}
     </div>
   </div>
   {{ form.content }}

@@ -14,6 +14,8 @@ from haystack.query import SearchQuerySet
 
 from taggit.models import Tag
 
+from pokemon.models import Type
+
 from .forms import ArticleForm
 from .models import Article, ArticleEdit
 from .search_forms import ArticleSearchForm
@@ -44,6 +46,8 @@ class WikiArticleView(TemplateView):
         except Article.DoesNotExist:
             self.template_name = 'wiki/article-404.html'
             context['title'] = slug.replace('-', ' ').title()
+        if context['article'].pokemon:
+            context['types'] = Type.objects.all()
         return context
 
 

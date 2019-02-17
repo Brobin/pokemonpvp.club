@@ -6,6 +6,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.functional import cached_property
 
+from pokemon.models import Pokemon
+
 from .utils import markdownify
 
 from taggit.managers import TaggableManager
@@ -19,6 +21,8 @@ class Article(models.Model):
     title = models.CharField(max_length=128, unique=True)
     slug = models.CharField(max_length=128, unique=True, editable=False)
     content = models.TextField()
+
+    pokemon = models.ForeignKey(Pokemon, blank=True, null=True, on_delete=models.DO_NOTHING)
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="articles", null=True, on_delete=models.DO_NOTHING)
 

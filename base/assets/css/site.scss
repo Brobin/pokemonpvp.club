@@ -185,3 +185,16 @@ p.light {
     padding-bottom: 1px;
   }
 }
+
+.type-image {
+  max-width: 40px;
+  max-height: 40px;
+  padding: 5px;
+}
+
+.visible-xs {
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
+}

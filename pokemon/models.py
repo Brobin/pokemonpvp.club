@@ -70,6 +70,30 @@ class Pokemon(BaseModel):
             return str(self.secondary_type)
         return None
 
+    def effectiveness(self, attacking):
+        effectiveness = TypeMatchup.objects.get(
+            attacking_type=attacking,
+            defending_type=self.primary_type
+        ).multiplier
+        if self.secondary_type:
+            effectiveness *= TypeMatchup.objects.get(
+                attacking_type=attacking,
+                defending_type=self.secondary_type
+            ).multiplier
+        return effectiveness
+
+    @cached_property
+    def weaknesses(self):
+        for t in Type.objects.all():
+            if self.effectiveness(t) > 1:
+                yield t
+
+    @cached_property
+    def resistances(self):
+        for t in Type.objects.all():
+            if self.effectiveness(t) < 1:
+                yield t
+
     def attack(self, level, att_iv):
         return (self.base_attack + att_iv) * CPM[level]
 
