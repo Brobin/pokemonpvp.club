@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Type, TypeMatchup, Pokemon
+from .models import Type, TypeMatchup, Pokemon, SilphCup
 
 
 @admin.register(Type)
@@ -12,6 +12,11 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(TypeMatchup)
 class TypeMatchupAdmin(admin.ModelAdmin):
     list_display = ['attacking_type', 'defending_type', 'multiplier']
+
+
+@admin.register(SilphCup)
+class SilphCupAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
 
 
 @admin.register(Pokemon)

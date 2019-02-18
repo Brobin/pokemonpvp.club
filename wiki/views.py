@@ -68,6 +68,13 @@ class WikiEditMixin(object):
             article.author = self.request.user
         article.save()
         form.save_m2m()
+        if article.pokemon:
+            poke = article.pokemon
+            article.tags.add(poke.primary_type.name.title())
+            if poke.secondary_type:
+                article.tags.add(poke.secondary_type.name.title())
+            for cup in poke.cups:
+                article.tags.add(cup.name)
         return redirect(self.get_success_url(article))
 
     def get_success_url(self, article):

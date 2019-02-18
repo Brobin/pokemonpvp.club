@@ -16,27 +16,17 @@
 <p>Try a different search or tag</p>
 <img src="{% static 'img/break.gif' %}"/>
 {% endfor %}
-{% if page_obj.paginator.num_pages > 1 %}
-<center>
-  <ul class="pagination">
-    {% if page_obj.paginator.has_previous %}
-    <li><a href="?{% url_replace request 'page' page_obj.previous_page_number %}">&laquo;</a></li>
-    {% else %}
-    <li class="disabled"><a href="">&laquo;</a></li>
-    {% endif %}
 
+<div class="text-center">
+  {% if page_obj.paginator.num_pages > 1 %}
+  <ul class="pagination">
     {% for i in page_obj.paginator.page_range %}
-    <li {% if page_obj.number == i %} class="active" {% endif %}>
-      <a href="?{% url_replace request 'page' i %}">{{ i }}</a>
+    <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+      <a href="?{% url_replace request 'page' i %}" class="page-link">{{ i }}</a>
     </li>
     {% endfor %}
-
-    {% if page_obj.has_next %}
-    <li><a href="{% url_replace request 'page' page_obj.next_page_number %}">&raquo;</a></li>
-    {% else %}
-    <li class="disabled"><a href="#">&raquo;</a></li>
-    {% endif %}
   </ul>
-</center>
-{% endif %}
+  {% endif %}
+</div>
+
 {% endblock %}

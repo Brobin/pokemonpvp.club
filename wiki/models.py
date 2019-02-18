@@ -30,7 +30,14 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Article, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+        if self.pokemon:
+            p = self.pokemon
+            self.tags.add(p.primary_type.name.title())
+            if p.secondary_type:
+                self.tags.add(p.secondary_type.name.title())
+            for cup in p.cups:
+                self.tags.add(cup.name)
 
     @cached_property
     def rendered_content(self):

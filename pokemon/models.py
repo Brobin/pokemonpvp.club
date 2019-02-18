@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils.functional import cached_property
 
 from base.models import BaseModel
@@ -41,6 +42,11 @@ class TypeMatchup(BaseModel):
         return 'bg-light'
 
 
+class SilphCup(BaseModel):
+    name = models.CharField(max_length=32)
+    types = models.ManyToManyField(Type, related_name='cups')
+
+
 class Pokemon(BaseModel):
     number = models.IntegerField()
     name = models.CharField(max_length=32)
@@ -70,6 +76,10 @@ class Pokemon(BaseModel):
             return str(self.secondary_type)
         return None
 
+    @cached_property
+    def cups(self):
+        return SilphCup.objects.filter(Q(types=self.primary_type) | Q(types=self.secondary_type))
+
     def effectiveness(self, attacking):
         effectiveness = TypeMatchup.objects.get(
             attacking_type=attacking,
@@ -85,14 +95,16 @@ class Pokemon(BaseModel):
     @cached_property
     def weaknesses(self):
         for t in Type.objects.all():
+            eff = self.effectiveness(t)
             if self.effectiveness(t) > 1:
-                yield t
+                yield t, eff
 
     @cached_property
     def resistances(self):
         for t in Type.objects.all():
+            eff = self.effectiveness(t)
             if self.effectiveness(t) < 1:
-                yield t
+                yield t, eff
 
     def attack(self, level, att_iv):
         return (self.base_attack + att_iv) * CPM[level]

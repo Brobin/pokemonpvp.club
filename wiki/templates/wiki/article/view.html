@@ -1,9 +1,11 @@
-{% extends "wiki/base.html" %}
+{% extends "base.html" %}
 {% load staticfiles pokemon_tags %}
 
 {% block title %}{{ article.title }}{% endblock %}
 
-{% block body_content %}
+{% block content %}
+<a href="{% url 'wiki-index' %}">< Back to the Wiki</a>
+
 <h1>{{ article.title }}{% if perms.wiki.editor %}<a href="{% url 'wiki-article-edit' article.id %}" class="btn btn-primary" style="float:right;">Edit Article</a>{% endif %}</h1>
 <h4><a href="{{ article.topic.url }}">{{ article.topic }}</a></h4>
 
@@ -17,40 +19,46 @@
 
 {% for tag in article.tags.all %}<span class="badge" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }}</a></span> {% endfor %}
 <hr/>
-{% if article.pokemon %}
-{% with article.pokemon as p %}
-<div class="well">
-  <div class="row text-center">
-    <div class="col-md-2 col-sm-6 text-center">
-      <img src="{{ p.image }}"/>
-      <p style="margin-bottom:0;margin-top:10px;">Max CP: <b>{{ p.max_cp }}</b></p>
-      <p style="margin-bottom:0"><a href="{% url 'pvp-iv' %}?pokemon={{p.name }}">Optimal IV</a></p>
+
+<div class="row">
+  {% if article.pokemon %}
+  <div class="col-md-3">
+    {% with article.pokemon as p %}
+    <div class="well">
+      <div class="text-center">
+        <div>
+          <img src="{{ p.image }}"/>
+          <p style="margin-bottom:0;margin-top:10px;">Max CP: <b>{{ p.max_cp }}</b></p>
+          <p style="margin-bottom:0"><a href="{% url 'pvp-iv' %}?pokemon={{p.name }}">Optimal IV</a></p>
+        </div>
+        <hr/>
+        <div>
+          <h5>Typing</h5>
+          <p><img src="{% static  p.primary_type.image %}" class="type-image"/>{% if p.secondary_type %}<img src="{% static  p.secondary_type.image %}" class="type-image"/>{% endif %}</p>
+        </div>
+        <hr/>
+        <div>
+          <h5 class="text-danger">Weaknesses</h5>
+          {% for type, pct in p.weaknesses %}
+          <div class="weakness"><img src="{% static type.image  %}" class="type-image"/>{{pct|percentage}}</div>
+          {% endfor %}
+        </div>
+        <hr/>
+        <div>
+          <h5 class="text-success">Resistances</h5>
+          {% for type, pct in p.resistances %}
+          <div class="resistance"><img src="{% static type.image  %}" class="type-image"/>{{pct|percentage}}</div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    <div class="col-md-2 col-sm-6">
-      <hr class="visible-xs">
-      <h5>Typing</h5>
-      <p><img src="{% static  p.primary_type.image %}" class="type-image"/>{% if p.secondary_type %}<img src="{% static  p.secondary_type.image %}" class="type-image"/>{% endif %}</p>
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <hr class="visible-xs">
-      <h5 class="text-danger">Weaknesses</h5>
-      {% for type in p.weaknesses %}
-      <img src="{% static type.image  %}" class="type-image"/>
-      {% endfor %}
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <hr class="visible-xs">
-      <h5 class="text-success">Resistances</h5>
-      {% for type in p.resistances %}
-      <img src="{% static type.image  %}" class="type-image"/>
-      {% endfor %}
+    {% endwith %}
+  </div>
+  {% endif %}
+  <div class="col-md-{% if article.pokemon %}9{% else %}12{% endif %}">
+    <div class="well">
+      {{ article.rendered_content|safe }}
     </div>
   </div>
-</div>
-{% endwith %}
-{% endif %}
-
-<div class="well">
-  {{ article.rendered_content|safe }}
 </div>
 {% endblock %}

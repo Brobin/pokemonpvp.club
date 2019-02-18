@@ -198,3 +198,19 @@ p.light {
     display: block;
   }
 }
+
+.weakness {
+  display: inline-block;
+  margin:3px;
+  border-radius: 40px;
+  padding-right: 5px;
+  background-color: #dedede;
+}
+
+.resistance {
+  display: inline-block;
+  margin:3px;
+  border-radius: 40px;
+  padding-right: 5px;
+  background-color: #dedede;
+}
