@@ -17,7 +17,7 @@
 <p  class="font-italic">Last updated by {% if editor.trainer %}{{ editor.trainer.name }}{% else %}{{ editor }}{% endif %} on {{ article.latest_edit.created_at|date }} at {{ article.latest_edit.created_at|time }}</p>
 {% endwith %}
 
-{% for tag in article.tags.all %}<span class="badge" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }}</a></span> {% endfor %}
+{% for tag in article.tags.all %}<span class="badge {{tag.name.lower}}" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=tag.slug %}">{{ tag.name }}</a></span> {% endfor %}
 <hr/>
 
 <div class="row">
@@ -28,26 +28,46 @@
       <div class="text-center">
         <div>
           <img src="{{ p.image }}"/>
-          <p style="margin-bottom:0;margin-top:10px;">Max CP: <b>{{ p.max_cp }}</b></p>
+          <table class="table table-condensed" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th>Att</th>
+                <th>Def</th>
+                <th>Sta</th>
+                <th>Max CP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ p.base_attack }}</td>
+                <td>{{ p.base_defense }}</td>
+                <td>{{ p.base_stamina }}</td>
+                <td>{{ p.max_cp }}</td>
+              </tr>
+            </tbody>
+          </table>
           <p style="margin-bottom:0"><a href="{% url 'pvp-iv' %}?pokemon={{p.name }}">Optimal IV</a></p>
         </div>
         <hr/>
         <div>
           <h5>Typing</h5>
-          <p><img src="{% static  p.primary_type.image %}" class="type-image"/>{% if p.secondary_type %}<img src="{% static  p.secondary_type.image %}" class="type-image"/>{% endif %}</p>
+          <span class="badge {{p.primary_type.name.lower}}" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=p.primary_type.name.lower %}">{{ p.primary_type.name.title }}</a></span>
+          {% if p.secondary_type %}
+          <span class="badge {{p.secondary_type.name.lower}}" style="padding-right:7px;"><a href="{% url 'wiki-tag' slug=p.secondary_type.name.lower %}">{{ p.secondary_type.name.title }}</a></span>
+          {% endif %}
         </div>
         <hr/>
         <div>
           <h5 class="text-danger">Weaknesses</h5>
           {% for type, pct in p.weaknesses %}
-          <div class="weakness"><img src="{% static type.image  %}" class="type-image"/>{{pct|percentage}}</div>
+          <span class="badge {{ type.name|lower }}">{{ type.name.title }} <span class="badge-count">{{ pct | percentage }}</span></span>
           {% endfor %}
         </div>
         <hr/>
         <div>
           <h5 class="text-success">Resistances</h5>
           {% for type, pct in p.resistances %}
-          <div class="resistance"><img src="{% static type.image  %}" class="type-image"/>{{pct|percentage}}</div>
+          <span class="badge {{ type.name|lower }}">{{ type.name.title }} <span class="badge-count">{{ pct | percentage }}</span></span>
           {% endfor %}
         </div>
       </div>

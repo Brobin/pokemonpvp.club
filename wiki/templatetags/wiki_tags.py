@@ -16,4 +16,8 @@ def url_replace(request, field, value):  # coverage: omit
 
 @register.inclusion_tag('wiki/tags/_sidebar.html')
 def wiki_sidebar():
-    return {'tags': Tag.objects.annotate(articles=Count('taggit_taggeditem_items')).order_by('-articles', 'name')}
+    return {
+        'tags': Tag.objects.annotate(
+            articles=Count('taggit_taggeditem_items')
+        ).filter(articles__gt=0).order_by( 'name')
+    }

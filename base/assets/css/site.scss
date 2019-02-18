@@ -176,14 +176,30 @@ p.light {
     background-color: darken($cyan, 10%);
   }
   .badge-count {
-    height: 100%;
-    color: #3591AB;
+    color: #888;
     background-color: #eee;
-    border: 1px solid $cyan;
     border-radius: 10px;
     padding: 0 5px;
-    padding-bottom: 1px;
+    margin: 2px;
   }
+  &.bug {background-color: #a9b821;}
+  &.dark {background-color: #6e5747;}
+  &.dragon {background-color: #6f39f7;}
+  &.electric {background-color: #f7d301;color:#555;a{color:#555;}}
+  &.fairy {background-color: #ff66d4;}
+  &.fighting {background-color: #bf3028;}
+  &.fire {background-color: #f08030;}
+  &.flying {background-color: #a890f0;}
+  &.ghost {background-color: #6e5796;}
+  &.grass {background-color: #77c750;}
+  &.ground {background-color: #debe68;}
+  &.ice {background-color: #98d6d6;color:#555;a{color:#555;}}
+  &.normal {background-color: #a6a677;}
+  &.poison {background-color: #9e3f9e;}
+  &.psychic {background-color: #f75989;}
+  &.rock {background-color: #b89e39;}
+  &.steel {background-color: #b8b8cf;}
+  &.water {background-color: #6992f0;}
 }
 
 .type-image {
