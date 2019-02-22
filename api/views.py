@@ -1,5 +1,6 @@
 import logging
 import operator
+import requests
 
 from functools import reduce
 
@@ -51,6 +52,33 @@ class TrainerViewSet(MultipleFieldLookupMixin, viewsets.ModelViewSet):
     serializer_class = TrainerSerializer
     lookup_field = 'name'
     lookup_fields = ('name', 'user__username')
+
+
+class PokemonAPI(APIView):
+
+    def get(self, request, name=None, number=None):
+        if name:
+            try:
+                pokemon = Pokemon.objects.get(name__iexact=name.lower())
+            except Pokemon.DoesNotExist:
+                return Response(
+                {'error': 'Pokemon Not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        if number:
+            try:
+                pokemon = Pokemon.objects.get(number=number)
+            except Pokemon.DoesNotExist:
+                return Response(
+                {'error': 'Pokemon Not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        number = pokemon.number
+        base_url = 'https://db.pokemongohub.net/api/'
+        data = requests.get('{0}/pokemon/{1}'.format(base_url, number)).json()
+        data['moves'] = requests.get('{0}/moves/with-pokemon/{1}'.format(base_url, number)).json()
+        return Response(data)
+
 
 
 class PvPIVAPI(PvpIVSpread, APIView):
