@@ -301,10 +301,17 @@ video {
     border-color: $gray-800;
   }
 
-  input, select, input:active, input:focus, select:active {
+  input:not(.btn), select, input:not(.btn):active, input:not(.btn):focus, select:active {
     border-color: $gray-700;
-    background-color: $gray-800;
+    background-color: $gray-900;
     color: $gray-300;
+  }
+  .well {
+    input:not(.btn), select, input:not(.btn):active, input:not(.btn):focus, select:active {
+      border-color: $gray-700;
+      background-color: $gray-800;
+      color: $gray-300;
+    }
   }
 
 }
