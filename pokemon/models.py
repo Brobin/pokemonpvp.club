@@ -62,8 +62,14 @@ class Pokemon(BaseModel):
 
     @cached_property
     def image(self):
-        return 'https://img.pokemondb.net/artwork/{0}.jpg'.format(
-            self.name.lower().replace(' ', '-')
+        return 'https://db.pokemongohub.net/images/official/detail/{0}.png'.format(
+            str(self.number).zfill(3)
+        )
+
+    @cached_property
+    def video(self):
+        return 'https://db.pokemongohub.net/videos/normal/{0}.mp4'.format(
+            self.name
         )
 
     @cached_property

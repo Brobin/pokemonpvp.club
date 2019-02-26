@@ -64,7 +64,8 @@ html, body {
 .footer {
   height: 115px;
   margin-top: -115px;
-  background-color: #e7e7e7;
+  background-color: $gray-900;
+  color: $gray-400;
   padding: 20px 0;
   .copyright {
     float: right;
@@ -89,7 +90,7 @@ label {
 }
 
 .well {
-  background-color: $white;
+  //background-color: $white;
   border-radius: 5px;
   border: none;
   box-shadow: 0 0 5px $gray-400;
@@ -229,4 +230,86 @@ p.light {
   border-radius: 40px;
   padding-right: 5px;
   background-color: #dedede;
+}
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+
+
+.bg-dark {
+  color: $gray-300;
+
+  hr {
+    border-color: $gray-700;
+  }
+
+  .well {
+    background-color: $gray-900;
+    box-shadow: 0 0 5px $gray-900;
+    color: $gray-400;
+  }
+
+  .navbar, .footer {
+    color: $gray-400;
+    background-color: $gray-900;
+  }
+
+  .dropdown-menu {
+    color: $gray-400;
+    background-color: $gray-900;
+  }
+
+  .dropdown-divider {
+    border-color: $gray-700;
+  }
+
+  .dropdown-item {
+    color: $gray-400;
+    &:hover {
+      background-color: $gray-700;
+    }
+  }
+
+  .table td, .table thead th {
+    border-color: $gray-700;
+  }
+  .table-success td {
+    background-color: $green;
+    color: $gray-200;
+  }
+  .table-danger td {
+    background-color: $red;
+  }
+  .table-warning td {
+    background-color: $yellow;
+    color: $gray-800;
+  }
+
+  .nav-tabs {
+    border-color: $gray-700;
+  }
+
+  .nav-tabs .nav-link:hover {
+    border-color: $gray-700;
+  }
+
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: $gray-300;
+    background-color: $gray-800;
+    border-color: $gray-800;
+  }
+
+  input, select, input:active, input:focus, select:active {
+    border-color: $gray-700;
+    background-color: $gray-800;
+    color: $gray-300;
+  }
+
+}
+
+.bg-darker {
+  color: $gray-400;
+  background-color: $gray-900;
 }
