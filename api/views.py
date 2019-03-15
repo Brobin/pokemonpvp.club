@@ -80,6 +80,23 @@ class PokemonAPI(APIView):
         return Response(data)
 
 
+class PokemonMove(APIView):
+
+    def get(self, request, name=None):
+        url = 'https://db.pokemongohub.net/api/moves/with-filter/fast/with-stats'
+        data = requests.get(url).json()
+        name = name.replace('%20', ' ')
+        for move in data:
+            if name.lower() == move['name'].lower():
+                return Response(move)
+        url = 'https://db.pokemongohub.net/api/moves/with-filter/charge/with-stats'
+        data = requests.get(url).json()
+        name = name.replace('%20', ' ')
+        for move in data:
+            if name.lower() == move['name'].lower():
+                return Response(move)
+        return Response({'error': 'Move Not found'}, status=status.HTTP_404_NOT_FOUND)
+
 
 class PvPIVAPI(PvpIVSpread, APIView):
     """
