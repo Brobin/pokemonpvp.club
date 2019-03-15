@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, View
 from django.views.generic.edit import CreateView, UpdateView
 
 from haystack.generic_views import SearchView
@@ -29,8 +29,8 @@ class WikiHomeView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(WikiHomeView, self).get_context_data(*args, **kwargs)
-        context['recent'] = Article.objects.order_by('-updated_at')[:5]
-        context['articles'] = Article.objects.count()
+        context['recent'] = Article.objects.visible_to(self.request.user).order_by('-updated_at')[:5]
+        context['articles'] = Article.objects.visible_to(self.request.user).count()
         context['editors'] = ArticleEdit.objects.values('editor').distinct().count()
         return context
 
@@ -49,6 +49,25 @@ class WikiArticleView(TemplateView):
         if context['article'].pokemon:
             context['types'] = Type.objects.all()
         return context
+
+
+class WikiArticlePublishView(View):
+
+    def get(self, request, *args, **kwargs):
+        article = get_object_or_404(Article, id=self.kwargs.get('pk'))
+        article.status = Article.PUBLISHED
+        article.save()
+        log.debug(article.status)
+        return redirect(article.url)
+
+
+class WikiArticleUnpublishView(View):
+
+    def get(self, request, *args, **kwargs):
+        article = get_object_or_404(Article, id=self.kwargs.get('pk'))
+        article.status = Article.DRAFT
+        article.save()
+        return redirect(article.url)
 
 
 class WikiEditMixin(object):

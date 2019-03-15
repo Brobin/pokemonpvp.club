@@ -8,15 +8,25 @@ from django.utils.functional import cached_property
 
 from pokemon.models import Pokemon
 
+from .managers import ArticleQuerySet
 from .utils import markdownify
 
 from taggit.managers import TaggableManager
 
 
 class Article(models.Model):
+    objects = ArticleQuerySet.as_manager()
+
+    DRAFT = 1
+    PUBLISHED = 2
+    STATUSES = (
+        (DRAFT, 'Draft'),
+        (PUBLISHED, 'Published'),
+    )
     id = models.AutoField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    status = models.IntegerField(choices=STATUSES, default=DRAFT)
 
     title = models.CharField(max_length=128, unique=True)
     slug = models.CharField(max_length=128, unique=True, editable=False)
@@ -47,6 +57,10 @@ class Article(models.Model):
     def url(self):
         return self.get_absolute_url()
 
+    @property
+    def is_published(self):
+        return self.status == self.PUBLISHED
+
     def get_absolute_url(self):
         return reverse('wiki-article', kwargs={'slug': self.slug})
 
@@ -57,6 +71,7 @@ class Article(models.Model):
     class Meta:
         permissions = (
             ('editor', 'Can Add and edit wiki Articles'),
+            ('publisher', 'Can Publish wiki Articles'),
         )
 
 

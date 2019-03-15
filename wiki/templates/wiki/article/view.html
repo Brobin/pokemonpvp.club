@@ -6,7 +6,16 @@
 {% block content %}
 <a href="{% url 'wiki-index' %}">< Back to the Wiki</a>
 
-<h1>{{ article.title }}{% if perms.wiki.editor %}<a href="{% url 'wiki-article-edit' article.id %}" class="btn btn-primary" style="float:right;">Edit Article</a>{% endif %}</h1>
+{% if not article.is_published %}
+<div class="alert alert-dismissible alert-warning">
+  <h4 class="alert-heading">Draft!</h4>
+  <p class="mb-0">This article is currently a draft. If you have publishing permissions, you can make it go live by clicking the "Publish" button below.</p>
+</div>
+{% endif %}
+
+<h1>{{ article.title }}{% if perms.wiki.editor %}<a href="{% url 'wiki-article-edit' article.id %}" class="btn btn-primary" style="float:right;">Edit Article</a>{% endif %}
+{% if perms.wiki.publisher %}{% if article.is_published %}<a href="{% url 'wiki-article-unpublish' article.id %}" class="btn btn-warning" style="float:right;margin-right:20px;">Un-Publish</a>{% else %}<a href="{% url 'wiki-article-publish' article.id %}" class="btn btn-warning" style="float:right;margin-right:20px;">Publish</a>{% endif %}{% endif %}
+</h1>
 <h4><a href="{{ article.topic.url }}">{{ article.topic }}</a></h4>
 
 {% with article.author as editor %}

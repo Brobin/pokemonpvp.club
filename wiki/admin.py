@@ -19,14 +19,23 @@ class ArtcleEditInline(admin.TabularInline):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'created_at', 'updated_at']
+    list_display = ['title', 'author', 'created_at', 'updated_at', 'status']
     list_display_links = ['title']
     fields = ['title', 'tags', 'pokemon', 'content']
     inlines = [ArtcleEditInline]
+    actions = ['publish', 'set_to_draft']
 
     formfield_overrides = {
         models.TextField: {'widget': AdminMarkdownxWidget},
     }
+
+    def publish(self, request, queryset):
+        queryset.update(status=Article.PUBLISHED)
+    publish.short_description = 'Publish Articles'
+
+    def set_to_draft(self, request, queryset):
+        queryset.update(status=Article.DRAFT)
+    set_to_draft.short_description = 'Set to Draft'
 
     def save_model(self, request, obj, form, change):
         if not obj.pk:

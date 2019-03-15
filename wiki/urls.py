@@ -7,6 +7,8 @@ from .views import (
     WikiHomeView,
     WikiSearchView,
     WikiTagView,
+    WikiArticleUnpublishView,
+    WikiArticlePublishView
 )
 
 
@@ -19,6 +21,14 @@ urlpatterns = [
     path('article/<int:pk>/edit/',
         WikiArticleEditView.as_view(),
         name='wiki-article-edit'),
+
+    path('article/<int:pk>/publish/',
+        WikiArticlePublishView.as_view(),
+        name='wiki-article-publish'),
+
+    path('article/<int:pk>/unpublish/',
+        WikiArticleUnpublishView.as_view(),
+        name='wiki-article-unpublish'),
 
     path('article/<str:slug>/',
         WikiArticleView.as_view(),
