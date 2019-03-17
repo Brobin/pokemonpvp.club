@@ -45,6 +45,7 @@ class PvpIVSpread(TemplateView):
         
         pokemon = self.request.GET.get('pokemon', 'Skarmory')
         max_cp = int(self.request.GET.get('max_cp', 1500))
+        min_iv = int(self.request.GET.get('min_iv', 0))
 
         try:
             pokemon = Pokemon.objects.get(name=pokemon)
@@ -58,18 +59,26 @@ class PvpIVSpread(TemplateView):
         context['ivs'] = range(0, 16)
         context['pokemon'] = pokemon
         context['max_cp'] = max_cp
+        context['min_iv'] = min_iv
 
-        key = pokemon.name + str(context['max_cp'])
+        if min_iv == 0:
+            key = pokemon.name + str(max_cp)
+        else:
+            key = '{0}{1}-{2}'.format(pokemon.name, max_cp, min_iv)
         combos = cache.get(key)
         if not combos or settings.DEBUG:
-            combos = list(self.get_combos(pokemon, max_cp))
+            combos = list(self.get_combos(pokemon, max_cp, min_iv))
             cache.set(key, combos, 60*60*24*7)
+        context['num_combos'] = len(combos)
         context['combos'] = combos[0:25]
         max_product = combos[0][-2]
         context['my_combo'] = self.get_my_combo(
             pokemon, context['att_iv'], context['def_iv'],
             context['sta_iv'], max_cp, max_product)
-        context['rank'] = combos.index(context['my_combo']) + 1
+        try:
+            context['rank'] = combos.index(context['my_combo']) + 1
+        except:
+            context['rank'] = 'Not Found'
         return context
 
     def get_my_combo(self, pokemon, att_iv, def_iv, sta_iv, max_cp, max_product):
@@ -80,11 +89,11 @@ class PvpIVSpread(TemplateView):
                     level/2.0, att_iv, def_iv, sta_iv, a, d, s, cp, product, product / max_product * 100
                 )
 
-    def get_combos(self, pokemon, max_cp):
+    def get_combos(self, pokemon, max_cp, min_iv):
         combos = []
-        for hp in reversed(range(0, 16)):
-            for de in reversed(range(0, 16)):
-                for at in reversed(range(0, 16)):
+        for hp in reversed(range(min_iv, 16)):
+            for de in reversed(range(min_iv, 16)):
+                for at in reversed(range(min_iv, 16)):
                     for lvl in reversed(range(20, 81)):
                         cp, a, d, s, prod = pokemon.all_stats(lvl/2.0, at, de, hp)
                         if cp <= max_cp:

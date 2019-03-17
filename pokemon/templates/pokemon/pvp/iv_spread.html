@@ -25,6 +25,18 @@
         <option value="2500" {% if max_cp == 2500 %}selected{% endif %}>Ultra League</option>
       </select>
     </div>
+    <div class="col-md-4 col-sm-6">
+      <label>Minimum IV</label>
+      <select name="min_iv" class="form-control">
+        <option value="0" {% if min_iv == 0 %}selected{% endif %}>0: Wild Catch</option>
+        <option value="1" {% if min_iv == 1 %}selected{% endif %}>1: Trade, Good Friend</option>
+        <option value="2" {% if min_iv == 2 %}selected{% endif %}>2: Trade, Great Friend</option>
+        <option value="3" {% if min_iv == 3 %}selected{% endif %}>3: Trade, Ultra Friend</option>
+        <option value="4" {% if min_iv == 4 %}selected{% endif %}>4: Wild Catch, Weather Boost</option>
+        <option value="5" {% if min_iv == 5 %}selected{% endif %}>5: Trade, Best Friend</option>
+        <option value="10" {% if min_iv == 10 %}selected{% endif %}>10: Raid/Hatch/Lucky Trade</option>
+      </select>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-2 col-sm-3 col-4">
@@ -57,7 +69,7 @@
   </div>
 </form>
 <div class="well" style="margin-top:20px;">
-  <a href="https://pvpoke.com/rankings/all/1500/overall/{{ pokemon.name | lower }}/" target="_blank">PvPoke Ranking</a>
+  <p>{{ num_combos }}  IV Combinations</p>
   <hr/>
   <table class="table table-condensed table-striped">
     <thead>
@@ -74,7 +86,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-{% if rank <= 512 %}success{% elif rank <= 1024 %}warning{% else %}danger{% endif %}">
+      <tr class="table-{% if rank <= 512 %}success{% elif rank <= 1024 %}warning{% else %}{% if mycombo.9 > 100 %}success{% else %}danger{% endif %}{% endif %}">
         <td><b>{{ rank }}</b></td>
         <td>{{my_combo.0}}</td>
         <td>{{my_combo.1}} / {{my_combo.2}} / {{my_combo.3}}</td>
