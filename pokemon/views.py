@@ -77,8 +77,10 @@ class PvpIVSpread(TemplateView):
             context['sta_iv'], max_cp, max_product)
         try:
             context['rank'] = combos.index(context['my_combo']) + 1
+            context['rank_pct'] = (context['num_combos'] - context['rank']) / context['num_combos']
         except:
             context['rank'] = 'Not Found'
+            context['rank_pct'] == 0
         return context
 
     def get_my_combo(self, pokemon, att_iv, def_iv, sta_iv, max_cp, max_product):

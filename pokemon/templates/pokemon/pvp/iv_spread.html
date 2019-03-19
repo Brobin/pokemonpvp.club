@@ -87,7 +87,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr class="table-{% if rank <= 512 %}success{% elif rank <= 1024 %}warning{% else %}{% if mycombo.9 > 100 %}success{% else %}danger{% endif %}{% endif %}">
+      <tr class="table-{% if rank_pct >= .9 %}success{% elif rank_pct >= .5 %}warning{% else %}danger{% endif %}">
         <td><b>{{ rank }}</b></td>
         <td>{{my_combo.0}}</td>
         <td>{{my_combo.1}} / {{my_combo.2}} / {{my_combo.3}}</td>
