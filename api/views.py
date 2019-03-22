@@ -124,7 +124,7 @@ class PvPIVAPI(PvpIVSpread, APIView):
         key = pokemon.name + str(cp)
         combos = cache.get(key)
         if not combos or settings.DEBUG:
-            combos = list(self.get_combos(pokemon, cp))
+            combos = list(self.get_combos(pokemon, cp, 0))
             cache.set(key, combos, 60*60*24*7)
         return Response({
             'pokemon': name,
