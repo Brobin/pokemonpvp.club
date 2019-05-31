@@ -17,6 +17,7 @@
   "dependencies": {
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
-    "chart.js": "^2.7.3"
+    "chart.js": "^2.7.3",
+    "tabulator": "^4.2.7"
   }
 }
