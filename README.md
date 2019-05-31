@@ -12,8 +12,7 @@ Running:
 * python3 manage.py loaddata pokemon/fixtures/pokemon.json
 * python3 manage.py loaddata pokemon/fixtures/type-matchups.json
 * python3 manage.py createcachetable
-* run python3 manage.py runserver
-* cd base/assets
+* python3 manage.py runserver
 * access at http://127.0.0.1:8000/pvp/iv
 
 If you want the site to look nice:
