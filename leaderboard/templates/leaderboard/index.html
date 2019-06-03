@@ -19,7 +19,7 @@
         <h1>{{ stats.sum_xp | intword2 }}</h1>
         <p>{{ stats.avg_xp|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in xp_leaders %}
           <tr>
@@ -41,7 +41,7 @@
         <h1>{{ stats.sum_collector | intword2 }}</h1>
         <p>{{ stats.avg_collector|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in collector_leaders %}
           <tr>
@@ -63,7 +63,7 @@
         <h1>{{ stats.sum_breeder | intword2 }}</h1>
         <p>{{ stats.avg_breeder|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in breeder_leaders %}
           <tr>
@@ -85,7 +85,7 @@
         <h1><img src="{% static 'img/badge/great_veteran.png' %}"  height="50"/>&nbsp;{{ stats.sum_great_veteran | intword2 }}</h1>
         <p>{{ stats.avg_great_veteran|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in great_veteran_leaders %}
           <tr>
@@ -107,7 +107,7 @@
         <h1><img src="{% static 'img/badge/ultra_veteran.png' %}" height="50"/>&nbsp;{{ stats.sum_ultra_veteran | intword2 }}</h1>
         <p>{{ stats.avg_ultra_veteran|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in ultra_veteran_leaders %}
           <tr>
@@ -129,7 +129,7 @@
         <h1><img src="{% static 'img/badge/master_veteran.png' %}" height="50"/>&nbsp;{{ stats.sum_master_veteran | intword2 }}</h1>
         <p>{{ stats.avg_master_veteran|floatformat:0 | intcomma }} Average</p>
       </div>
-      <table class="table table-hover" style="text-align:none">
+      <table class="table table-hover text-light" style="text-align:none">
         <tbody>
           {% for trainer in master_veteran_leaders %}
           <tr>
