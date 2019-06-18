@@ -1,0 +1,23 @@
+{
+  "name": "pokemonpvp.club",
+  "version": "1.0.0",
+  "description": "Leaderboard and Resource site for the Pokemon Go PvP Discord server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efenderbosch/pokemonpvp.club.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efenderbosch/pokemonpvp.club/issues"
+  },
+  "homepage": "https://github.com/efenderbosch/pokemonpvp.club#readme",
+  "dependencies": {
+    "bower": "^1.8.8",
+    "sass": "^1.20.1"
+  }
+}

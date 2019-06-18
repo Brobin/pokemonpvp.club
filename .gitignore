@@ -31,3 +31,5 @@ media/
 
 # Fixtures
 admin.json
+
+node_modules

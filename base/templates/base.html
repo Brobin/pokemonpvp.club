@@ -9,10 +9,8 @@
   <meta property="og:url" content="{{ request.path }}" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  {% compress css %}
   <link rel="stylesheet" type="text/css" href="{% static 'bower_components/tabulator/dist/css/bootstrap/tabulator_bootstrap4.min.css' %}" />
-  <link rel="stylesheet" type="text/x-scss" href="{% static 'css/site.scss' %}" />
-  {% endcompress %}
+  <link rel="stylesheet" type="text/css" href="/static/css/site.css" />
 </head>
 <body>
   <div class="page bg-dark">
@@ -91,12 +89,10 @@
       <p class="copyright">&copy; 2019 Tobin Brown</p>
     </div>
   </footer>
-  {% compress js %}
   <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
   <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   <script src="{% static 'bower_components/chart.js/dist/Chart.min.js' %}"></script>
   <script src="{% static 'bower_components/tabulator/dist/js/tabulator.min.js' %}"></script>
-  {% endcompress %}
   {% block scripts %}{% endblock %}
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-48506325-5"></script>
   <script>
