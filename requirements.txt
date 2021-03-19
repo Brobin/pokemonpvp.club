@@ -14,7 +14,7 @@ django-haystack==2.8.1
 django-libsass==0.7
 django-markdownx==2.0.28
 django-taggit==0.23.0
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 idna==2.8
 itypes==1.1.0
 Jinja2==2.10
